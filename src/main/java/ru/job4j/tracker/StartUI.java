@@ -19,9 +19,9 @@ public class StartUI {
 
         System.out.println(test.findByName("Java").length);
         System.out.println(test.findById(1));
-
-
-
+        Item one = new Item("Kotlin");
+        test.replace(one, 4);
+        System.out.println(test.findById(4));
     }
 
 }
