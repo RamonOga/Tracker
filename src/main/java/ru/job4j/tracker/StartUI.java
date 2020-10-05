@@ -1,14 +1,27 @@
 package ru.job4j.tracker;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 public class StartUI {
 
     public static void main(String[] args) {
-        Item item = new Item();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
-        String date = item.getCreated().format(formatter);
-        System.out.println(date);
+        Tracker test = new Tracker();
+        test.add(new Item("Java"));
+        test.add(new Item("C++"));
+        test.add(new Item("C#"));
+        test.add(new Item("Python"));
+        test.add(new Item("Java"));
+        Item[] arrayItems = test.findAll();
+        for (int i = 0; i < arrayItems.length; i++) {
+            System.out.println(arrayItems[i].getName());
+        }
+
+        System.out.println(test.findByName("Java").length);
+        System.out.println(test.findById(1));
+
+
+
     }
 
 }
