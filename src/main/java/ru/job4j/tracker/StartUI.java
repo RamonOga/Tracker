@@ -1,73 +1,69 @@
 package ru.job4j.tracker;
 
-import java.util.Scanner;
+//import java.util.Scanner;
 
 public class StartUI {
 
-    public void init(Scanner scanner, Tracker tracker) {
+    public void init(Input input, Tracker tracker) {
         boolean run = true;
-        int input;
+        int inputI;
         String inputS;
         Item rsl;
         Item[] arrayItems;
+        String msg;
         while (run) {
             this.showMenu();
-            System.out.print("Select: ");
-            int select = Integer.parseInt(scanner.nextLine());
+            msg = "Select: ";
+            int select = Integer.parseInt(input.askStr(msg));
             switch (select) {
-                case 0:
+                case 0 -> {
                     System.out.println("=== Create a new Item ====");
-                    System.out.print("Enter name: ");
-                    String name = scanner.nextLine();
+                    msg = "Enter name: ";
+                    String name = input.askStr(msg);
                     Item item = new Item(name);
                     tracker.add(item);
-                    break;
-                case 1:
+                }
+                case 1 -> {
                     System.out.println("=== Show all items ====");
                     arrayItems = tracker.findAll();
                     for (Item value : arrayItems) {
                         System.out.println(value);
                     }
-                    break;
-                case 2:
-                    System.out.print("Enter ID: ");
-                    input = Integer.parseInt(scanner.nextLine());
-                    System.out.print("Enter ID: ");
-                    inputS = scanner.nextLine();
+                }
+                case 2 -> {
+                    msg = "Enter ID: ";
+                    inputI = Integer.parseInt(input.askStr(msg));
+                    msg = "Enter ID: ";
+                    inputS = input.askStr(msg);
                     Item deleteId = new Item(inputS);
-                    if (tracker.replace(deleteId, input)) {
-                        System.out.println("Request with name: " + inputS + " and ID: " + input + " replaced");
+                    if (tracker.replace(deleteId, inputI)) {
+                        System.out.println("Request with name: " + inputS + " and ID: " + inputI + " replaced");
                     } else {
                         System.out.println("Something went wrong..");
                     }
-
-                    break;
-
-                case 3:
-                    System.out.println("Enter ID for delete: ");
-                    input = Integer.parseInt(scanner.nextLine());
-                    if (tracker.delete(input)) {
-                        System.out.println("Item with ID " + input + " deleted ");
+                }
+                case 3 -> {
+                    msg = "Enter ID for delete: ";
+                    inputI = Integer.parseInt(input.askStr(msg));
+                    if (tracker.delete(inputI)) {
+                        System.out.println("Item with ID " + inputI + " deleted ");
                     } else {
                         System.out.println("Something went wrong..");
                     }
-                    break;
-
-                case 4:
-                    System.out.println("Enter ID for search: ");
-                    input = Integer.parseInt(scanner.nextLine());
-                    rsl = tracker.findById(input);
+                }
+                case 4 -> {
+                    msg = "Enter ID for search: ";
+                    inputI = Integer.parseInt(input.askStr(msg));
+                    rsl = tracker.findById(inputI);
                     if (rsl != null) {
                         System.out.println(rsl);
                     } else {
-                        System.out.println("Request with " + input + " number not found.");
+                        System.out.println("Request with " + inputI + " number not found.");
                     }
-
-                    break;
-
-                case 5:
-                    System.out.println("Enter name for search: ");
-                    inputS = (scanner.nextLine());
+                }
+                case 5 -> {
+                    msg = "Enter name for search: ";
+                    inputS = (input.askStr(msg));
                     arrayItems = tracker.findByName(inputS);
                     if (arrayItems.length > 0) {
                         for (Item arrayItem : arrayItems) {
@@ -76,11 +72,8 @@ public class StartUI {
                     } else {
                         System.out.println("Request with " + inputS + " not found");
                     }
-                    break;
-
-                case 6:
-                    run = false;
-                    break;
+                }
+                case 6 -> run = false;
             }
         }
     }
@@ -98,8 +91,8 @@ public class StartUI {
 
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Input input = new ConsoleInput();
         Tracker tracker = new Tracker();
-        new StartUI().init(scanner, tracker);
+        new StartUI().init(input, tracker);
     }
 }
