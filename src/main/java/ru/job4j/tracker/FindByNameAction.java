@@ -2,6 +2,12 @@ package ru.job4j.tracker;
 
 public class FindByNameAction implements UserAction {
 
+    private final Output out;
+
+    public FindByNameAction(Output out){
+        this.out = out;
+    }
+
     @Override
     public String name() {
         return "Find by name.";
@@ -16,7 +22,7 @@ public class FindByNameAction implements UserAction {
                 System.out.println(arrayItem);
             }
         } else {
-            System.out.println("Request with " + inputS + " not found");
+            out.println("Request with " + inputS + " not found");
         }
         return true;
     }
