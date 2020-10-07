@@ -61,8 +61,8 @@ public class StartUI {
     public static void editItem(Input input, Tracker tracker) {
         int inputI = input.askInt("Enter ID: ");
         String inputS = input.askStr("Enter Name: ");
-        Item deleteId = new Item(inputS);
-        if (tracker.replace(deleteId, inputI)) {
+        Item item = new Item(inputS);
+        if (tracker.replace(item, inputI)) {
             System.out.println("Request with name: " + inputS + " and ID: " + inputI + " replaced");
         } else {
             System.out.println("Something went wrong..");
