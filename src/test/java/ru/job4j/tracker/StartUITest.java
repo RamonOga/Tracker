@@ -68,7 +68,51 @@ public class StartUITest {
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
                 "Menu." + System.lineSeparator() +
-                        "0. Exit" + System.lineSeparator()
+                        "0. Exit." + System.lineSeparator()
         ));
     }
+
+    @Test
+    public void whenFindAllAction() {
+        Output out = new StubOutput();
+        Input in = new StubInput(
+                new String[] {"0", "java", "0", "js", "1"}
+        );
+        Tracker tracker = new Tracker();
+        UserAction[] actions = {new CreateAction(out) , new ExitAction(out)
+                };
+        new StartUI(out).init(in, tracker, actions);
+        assertThat(tracker.findAll().length, is(2));
+        assertThat(tracker.findAll()[0].getName(), is("java"));
+    }
+
+    @Test
+    public void whenFindByNameAction() {
+        Output out = new StubOutput();
+        Input in = new StubInput(
+                new String[] {"0", "java", "0", "js", "0", "java", "1"}
+        );
+        Tracker tracker = new Tracker();
+        UserAction[] actions = {new CreateAction(out), new ExitAction(out)
+        };
+        new StartUI(out).init(in, tracker, actions);
+        assertThat(tracker.findByName("java").length, is(2));
+        assertThat(tracker.findByName("java")[0].getName(), is("java"));
+    }
+
+    @Test
+    public void whenFindByIdAction() {
+        Output out = new StubOutput();
+        Input in = new StubInput(
+                new String[] {"0", "java", "1"}
+        );
+        Tracker tracker = new Tracker();
+        UserAction[] actions = {new CreateAction(out), new ExitAction(out)
+        };
+        new StartUI(out).init(in, tracker, actions);
+        assertThat(tracker.findById(1).getName(), is("java"));
+
+    }
+
+
 }
