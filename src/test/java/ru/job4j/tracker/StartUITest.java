@@ -76,41 +76,65 @@ public class StartUITest {
     public void whenFindAllAction() {
         Output out = new StubOutput();
         Input in = new StubInput(
-                new String[] {"0", "java", "0", "js", "1"}
+                new String[] {"0", "java", "1"}
         );
         Tracker tracker = new Tracker();
         UserAction[] actions = {new CreateAction(out) , new ExitAction(out)
                 };
         new StartUI(out).init(in, tracker, actions);
-        assertThat(tracker.findAll().length, is(2));
-        assertThat(tracker.findAll()[0].getName(), is("java"));
+        assertThat(out.toString(), is(
+                "Menu." + System.lineSeparator() +
+                        "0. Create a new request" + System.lineSeparator() +
+                        "1. Exit." + System.lineSeparator() +
+                        "=== Create a new request ====" + System.lineSeparator() +
+                        "Menu." + System.lineSeparator() +
+                        "0. Create a new request" + System.lineSeparator() +
+                        "1. Exit." + System.lineSeparator()
+
+        ));
     }
 
     @Test
     public void whenFindByNameAction() {
         Output out = new StubOutput();
         Input in = new StubInput(
-                new String[] {"0", "java", "0", "js", "0", "java", "1"}
+                new String[] {"0", "java", "1", "java", "2"}
         );
         Tracker tracker = new Tracker();
-        UserAction[] actions = {new CreateAction(out), new ExitAction(out)
+        UserAction[] actions = {new CreateAction(out), new FindByNameAction(out), new ExitAction(out)
         };
+        String menu = "Menu." + System.lineSeparator() +
+                "0. Create a new request" + System.lineSeparator() +
+                "1. Find by name." + System.lineSeparator() +
+                "2. Exit." + System.lineSeparator();
         new StartUI(out).init(in, tracker, actions);
-        assertThat(tracker.findByName("java").length, is(2));
-        assertThat(tracker.findByName("java")[0].getName(), is("java"));
+        assertThat(out.toString(), is(
+                 menu + "=== Create a new request ====" +
+                         System.lineSeparator() + menu +
+                         menu
+
+        ));
     }
 
     @Test
     public void whenFindByIdAction() {
         Output out = new StubOutput();
         Input in = new StubInput(
-                new String[] {"0", "java", "1"}
+                new String[] {"0", "java", "1", "33", "2"}
         );
         Tracker tracker = new Tracker();
-        UserAction[] actions = {new CreateAction(out), new ExitAction(out)
+        UserAction[] actions = {new CreateAction(out), new FindByIdAction(out), new ExitAction(out)
         };
+        String menu = "Menu." + System.lineSeparator() +
+                "0. Create a new request" + System.lineSeparator() +
+                "1. Find by id." + System.lineSeparator() +
+                "2. Exit." + System.lineSeparator();
         new StartUI(out).init(in, tracker, actions);
-        assertThat(tracker.findById(1).getName(), is("java"));
+        assertThat(out.toString(), is(
+                menu + "=== Create a new request ====" + System.lineSeparator()
+                        + menu + "Request with 33 number not found." + System.lineSeparator()
+                        + menu
+        ));
 
     }
 
