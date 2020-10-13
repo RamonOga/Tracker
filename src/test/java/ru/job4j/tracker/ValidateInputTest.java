@@ -8,10 +8,21 @@ import static org.junit.Assert.assertThat;
 public class ValidateInputTest {
 
     @Test
-    public void whenValidInput() {
+    public void whenInValidInput() {
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[] {"one", "1"}
+        );
+        ValidateInput input = new ValidateInput(out, in);
+        int selected = input.askInt("Enter menu:");
+        assertThat(selected, is(1));
+    }
+
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void whenValidInput() {
+        Output out = new StubOutput();
+        Input in = new StubInput(
+                new String[] {"one"}
         );
         ValidateInput input = new ValidateInput(out, in);
         int selected = input.askInt("Enter menu:");
