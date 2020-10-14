@@ -13,29 +13,29 @@ public class SingleTrackTest {
 
     @Test
     public void SingleInternalThenEqual() {
-        SingleTrackerInternal tracker1 = SingleTrackerInternal.getInstance();
-        SingleTrackerInternal tracker2 = SingleTrackerInternal.getInstance();
+        Tracker tracker1 = SingleTrackerInternal.getInstance();
+        Tracker tracker2 = SingleTrackerInternal.getInstance();
         assertThat(tracker1, is(tracker2));
     }
 
     @Test
     public void SingleEnumThenEqual() {
-        SingleTrackerEnum tracker1 = SingleTrackerEnum.INSTANCE;
-        SingleTrackerEnum tracker2 = SingleTrackerEnum.INSTANCE;
+        Tracker tracker1 = SingleTrackerEnum.INSTANCE.getTracker();
+        Tracker tracker2 = SingleTrackerEnum.INSTANCE.getTracker();
         assertThat(tracker1, is(tracker2));
     }
 
     @Test
     public void SingleStaticFieldThenEqual() {
-        SingleTrackerStaticField tracker1 = SingleTrackerStaticField.getInstance();
-        SingleTrackerStaticField tracker2 = SingleTrackerStaticField.getInstance();
+        Tracker tracker1 = SingleTrackerStaticField.getInstance();
+        Tracker tracker2 = SingleTrackerStaticField.getInstance();
         assertThat(tracker1, is(tracker2));
     }
 
     @Test
     public void SingleStaticFinalFieldThenEqual() {
-        SingleTrackerStaticFinalField tracker1 = SingleTrackerStaticFinalField.getInstance();
-        SingleTrackerStaticFinalField tracker2 = SingleTrackerStaticFinalField.getInstance();
+        Tracker tracker1 = SingleTrackerStaticFinalField.getInstance();
+        Tracker tracker2 = SingleTrackerStaticFinalField.getInstance();
         assertThat(tracker1, is(tracker2));
     }
 
