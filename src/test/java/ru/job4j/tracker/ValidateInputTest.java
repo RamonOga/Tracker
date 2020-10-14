@@ -18,14 +18,14 @@ public class ValidateInputTest {
         assertThat(selected, is(1));
     }
 
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    @Test
     public void whenValidInput() {
         Output out = new StubOutput();
         Input in = new StubInput(
-                new String[] {"one"}
+                new String[] {"one", "0"}
         );
         ValidateInput input = new ValidateInput(out, in);
         int selected = input.askInt("Enter menu:");
-        assertThat(selected, is(1));
+        assertThat(out.toString(), is("Please enter validate data again." + System.lineSeparator()));
     }
 }
