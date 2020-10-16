@@ -31,12 +31,4 @@ public class Person {
         return address;
     }
 
-    public ArrayList<String> getAllDate() {
-        ArrayList<String> rsl = new ArrayList<>();
-        rsl.add(name);
-        rsl.add(surname);
-        rsl.add(address);
-        rsl.add(phone);
-        return rsl;
-    }
 }
