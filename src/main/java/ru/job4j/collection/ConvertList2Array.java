@@ -10,8 +10,10 @@ public class ConvertList2Array {
         for (Integer num : list) {
                 array[row][cell] = num;
                 cell++;
-                row = cell == array.length ? row + 1 : row;
-                cell = cell == array[row].length ? 0 : cell;
+                if (cell == cells) {
+                    row++;
+                    cell = 0;
+                }
         }
         return array;
     }
