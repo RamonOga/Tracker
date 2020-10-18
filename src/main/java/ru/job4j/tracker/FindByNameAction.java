@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+
 public class FindByNameAction implements UserAction {
 
     private final Output out;
@@ -16,8 +18,8 @@ public class FindByNameAction implements UserAction {
     @Override
     public boolean execute(Input input, Tracker tracker) {
         String inputS = (input.askStr("Enter name for search: "));
-        Item[] arrayItems = tracker.findByName(inputS);
-        if (arrayItems.length > 0) {
+        ArrayList<Item> arrayItems = tracker.findByName(inputS);
+        if (arrayItems.size() > 0) {
             for (Item arrayItem : arrayItems) {
                 System.out.println(arrayItem);
             }
