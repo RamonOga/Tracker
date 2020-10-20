@@ -50,5 +50,6 @@ public class Item {
                 ", name='" + name + '\'' +
                 ", created=" + created +
                 '}';
+
     }
 }
