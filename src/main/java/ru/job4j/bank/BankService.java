@@ -13,12 +13,9 @@ public class BankService {
     }
 
     public void addAccount(String passport, Account account) {
-        for (User user : users.keySet()) {
-            if (user.getPassport().equals(passport) && !users.get(user).contains(account)) {
-                users.get(user).add(account);
-            }
-        }
-
+       if (!users.get(findByPassport(passport)).contains(account)) {
+           users.get(findByPassport(passport)).add(account);
+       }
     }
 
     public User findByPassport(String passport) {
@@ -26,6 +23,7 @@ public class BankService {
         for (User user : users.keySet()) {
             if (user.getPassport().equals(passport)) {
                 rsl = user;
+                break;
             }
         }
         return rsl;
@@ -33,12 +31,12 @@ public class BankService {
 
     public Account findByRequisite(String passport, String requisite) {
         Account rsl = null;
-        for (User user : users.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                for (Account account : users.get(user)) {
-                    if (account.getRequisite().equals(requisite)) {
-                        rsl = account;
-                    }
+        List<Account> accounts = users.get(findByPassport(passport));
+        if (accounts != null) {
+            for (Account acc : accounts) {
+                if (acc.getRequisite().equals(requisite)) {
+                    rsl = acc;
+                    break;
                 }
             }
         }
@@ -50,12 +48,12 @@ public class BankService {
         boolean rsl = false;
         Account accSrc = findByRequisite(srcPassport, srcRequisite);
         Account accDst = findByRequisite(destPassport, destRequisite);
-        if (accSrc.getBalance() > amount || accSrc != null) {
+        if (accSrc.getBalance() >= amount && accSrc != null && accDst != null) {
             accSrc.setBalance(accSrc.getBalance() - amount);
             accDst.setBalance(accDst.getBalance() + amount);
             rsl = true;
         }
         return rsl;
     }
-}
+    }
 
