@@ -1,21 +1,20 @@
 package ru.job4j.bank;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BankService {
     private Map<User, List<Account>> users = new HashMap<>();
 
     public void addUser(User user) {
-        users.putIfAbsent(user, new ArrayList<Account>());
+        if (contains(user)) {
+            users.putIfAbsent(user, new ArrayList<Account>());
+        }
     }
 
     public void addAccount(String passport, Account account) {
         User user;
         user = findByPassport(passport);
-        if (user != null) {
+        if (contains(user)) {
             if (!users.get(user).contains(account)) {
                 users.get(user).add(account);
             }
@@ -36,9 +35,9 @@ public class BankService {
     public Account findByRequisite(String passport, String requisite)  {
         Account rsl = null;
         User user = findByPassport(passport);
-        if (user != null) {
+        if (contains(user)) {
             List<Account> accounts = users.get(user);
-            if (accounts != null) {
+            if (contains(accounts)) {
                 for (Account acc : accounts) {
                     if (acc.getRequisite().equals(requisite)) {
                         rsl = acc;
@@ -55,7 +54,7 @@ public class BankService {
         boolean rsl = false;
         Account accSrc = findByRequisite(srcPassport, srcRequisite);
         Account accDst = findByRequisite(destPassport, destRequisite);
-        if (accSrc != null && accDst != null) {
+        if (contains(accSrc, accDst)) {
             if (accSrc.getBalance() >= amount) {
                 accSrc.setBalance(accSrc.getBalance() - amount);
                 accDst.setBalance(accDst.getBalance() + amount);
@@ -66,12 +65,29 @@ public class BankService {
         return rsl;
     }
 
+    private boolean contains(Object obj) {
+        boolean rsl = true;
+        if (obj == null) {
+            rsl = false;
+        }
+        return rsl;
+    }
+
+    private boolean contains(Object obj1, Object obj2) {
+        boolean rsl = true;
+        if (obj1 == null && obj2 == null) {
+            rsl = false;
+        }
+        return rsl;
+    }
+
     public static void main(String[] args) {
         BankService bank = new BankService();
         User user1 = new User("123", "ramon");
         User user2 = new User("321", "marmon");
         Account acc1 = new Account("123", 100);
         Account acc2 = new Account("321", 100);
+        bank.contains(user1);
         bank.addUser(user1);
         bank.addUser(user2);
         bank.addAccount("123", acc1);
