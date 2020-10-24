@@ -13,18 +13,16 @@ public class BankService {
     }
 
     public void addAccount(String passport, Account account) {
-        User user = null;
-        try {
-            user = findByPassport(passport);
-        } catch (UserDontFoundException userDontFoundException) {
-            System.out.println("User not found");
-        }
-        if (!users.get(user).contains(account)) {
-            users.get(user).add(account);
+        User user;
+        user = findByPassport(passport);
+        if (user != null) {
+            if (!users.get(user).contains(account)) {
+                users.get(user).add(account);
+            }
         }
     }
 
-    public User findByPassport(String passport) throws UserDontFoundException {
+    public User findByPassport(String passport) {
         User rsl = null;
         for (User user : users.keySet()) {
             if (user.getPassport().equals(passport)) {
@@ -32,16 +30,13 @@ public class BankService {
                 break;
             }
         }
-        if (rsl == null) {
-            throw new UserDontFoundException();
-        }
         return rsl;
     }
 
-    public Account findByRequisite(String passport, String requisite) throws AccountDontFoundException {
+    public Account findByRequisite(String passport, String requisite)  {
         Account rsl = null;
-        try {
-            User user = findByPassport(passport);
+        User user = findByPassport(passport);
+        if (user != null) {
             List<Account> accounts = users.get(user);
             if (accounts != null) {
                 for (Account acc : accounts) {
@@ -51,11 +46,6 @@ public class BankService {
                     }
                 }
             }
-        } catch (UserDontFoundException userDontFoundException) {
-            System.out.println("User not found");
-        }
-        if (rsl == null) {
-            throw new AccountDontFoundException();
         }
         return rsl;
     }
@@ -63,20 +53,16 @@ public class BankService {
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite, double amount) {
         boolean rsl = false;
+        Account accSrc = findByRequisite(srcPassport, srcRequisite);
+        Account accDst = findByRequisite(destPassport, destRequisite);
+        if (accSrc != null && accDst != null) {
+            if (accSrc.getBalance() >= amount) {
+                accSrc.setBalance(accSrc.getBalance() - amount);
+                accDst.setBalance(accDst.getBalance() + amount);
+                rsl = true;
 
-            Account accSrc = null;
-            try {
-                accSrc = findByRequisite(srcPassport, srcRequisite);
-                Account accDst = findByRequisite(destPassport, destRequisite);
-                if (accSrc.getBalance() >= amount && accSrc != null && accDst != null) {
-                    accSrc.setBalance(accSrc.getBalance() - amount);
-                    accDst.setBalance(accDst.getBalance() + amount);
-                    rsl = true;
-
-                }
-            } catch (AccountDontFoundException e) {
-                System.out.println("Account not found");
             }
+        }
         return rsl;
     }
 
@@ -90,22 +76,10 @@ public class BankService {
         bank.addUser(user2);
         bank.addAccount("123", acc1);
         bank.addAccount("321", acc2);
-        try {
-            bank.findByPassport("123");
-        } catch (UserDontFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            bank.findByRequisite("123", "123");
-        } catch (AccountDontFoundException e) {
-            e.printStackTrace();
-        }
+        bank.findByPassport("123");
+        bank.findByRequisite("123", "123");
         bank.transferMoney("123", "123", "321", "321", 100D);
-        try {
-            System.out.println(bank.findByRequisite("321", "321").getBalance());
-        } catch (AccountDontFoundException e) {
-            e.printStackTrace();
-        }
+        System.out.println(bank.findByRequisite("321", "321").getBalance());
     }
 }
 

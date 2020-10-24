@@ -13,11 +13,7 @@ public class BankServiceTest {
         User user = new User("3434", "Petr Arsentev");
         BankService bank = new BankService();
         bank.addUser(user);
-        try {
-            assertThat(bank.findByPassport("3434"), is(user));
-        } catch (UserDontFoundException e) {
-            System.out.println("Account not found");
-        }
+        assertThat(bank.findByPassport("3434"), is(user));
     }
 
     @Test
@@ -26,11 +22,7 @@ public class BankServiceTest {
         BankService bank = new BankService();
         bank.addUser(user);
         bank.addAccount(user.getPassport(), new Account("5546", 150D));
-        try {
-            assertNull(bank.findByRequisite("34", "5546"));
-        } catch (AccountDontFoundException e) {
-            System.out.println("Account not found");
-        }
+        assertNull(bank.findByRequisite("34", "5546"));
     }
 
     @Test
@@ -39,11 +31,16 @@ public class BankServiceTest {
         BankService bank = new BankService();
         bank.addUser(user);
         bank.addAccount(user.getPassport(), new Account("5546", 150D));
-        try {
-            assertThat(bank.findByRequisite("3434", "5546").getBalance(), is(150D));
-        } catch (AccountDontFoundException e) {
-            System.out.println("Account not found");
-        }
+        assertThat(bank.findByRequisite("3434", "5546").getBalance(), is(150D));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void addNullAccount() {
+        User user = null;
+        BankService bank = new BankService();
+        bank.addUser(user);
+        bank.addAccount(user.getPassport(), null);
+        assertThat(bank.findByRequisite("3434", "5546").getBalance(), is(150D));
     }
 
     @Test
@@ -54,10 +51,6 @@ public class BankServiceTest {
         bank.addAccount(user.getPassport(), new Account("5546", 150D));
         bank.addAccount(user.getPassport(), new Account("113", 50D));
         bank.transferMoney(user.getPassport(), "5546", user.getPassport(), "113", 150D);
-        try {
-            assertThat(bank.findByRequisite(user.getPassport(), "113").getBalance(), is(200D));
-        } catch (AccountDontFoundException e) {
-            System.out.println("Account not found");
-        }
+        assertThat(bank.findByRequisite(user.getPassport(), "113").getBalance(), is(200D));
     }
 }
