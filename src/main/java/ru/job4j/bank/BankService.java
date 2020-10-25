@@ -6,7 +6,7 @@ public class BankService {
     private Map<User, List<Account>> users = new HashMap<>();
 
     public void addUser(User user) {
-        if (contains(user)) {
+        if (user != null) {
             users.putIfAbsent(user, new ArrayList<Account>());
         }
     }
@@ -14,7 +14,7 @@ public class BankService {
     public void addAccount(String passport, Account account) {
         User user;
         user = findByPassport(passport);
-        if (contains(user)) {
+        if (user != null) {
             if (!users.get(user).contains(account)) {
                 users.get(user).add(account);
             }
@@ -35,9 +35,9 @@ public class BankService {
     public Account findByRequisite(String passport, String requisite)  {
         Account rsl = null;
         User user = findByPassport(passport);
-        if (contains(user)) {
+        if (user != null) {
             List<Account> accounts = users.get(user);
-            if (contains(accounts)) {
+            if (accounts != null) {
                 for (Account acc : accounts) {
                     if (acc.getRequisite().equals(requisite)) {
                         rsl = acc;
@@ -65,14 +65,6 @@ public class BankService {
         return rsl;
     }
 
-    private boolean contains(Object obj) {
-        boolean rsl = true;
-        if (obj == null) {
-            rsl = false;
-        }
-        return rsl;
-    }
-
     private boolean contains(Object obj1, Object obj2) {
         boolean rsl = true;
         if (obj1 == null && obj2 == null) {
@@ -87,7 +79,6 @@ public class BankService {
         User user2 = new User("321", "marmon");
         Account acc1 = new Account("123", 100);
         Account acc2 = new Account("321", 100);
-        bank.contains(user1);
         bank.addUser(user1);
         bank.addUser(user2);
         bank.addAccount("123", acc1);
