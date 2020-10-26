@@ -20,6 +20,3 @@ notifications:
     on_failure: always # defa,ult: always
 
 #This shit add by Markelov Roman
-env:
-  global:
-    - CODECOV_TOKEN="308b85e1-d758-4e5a-b2ab-4a9d8847f048"
