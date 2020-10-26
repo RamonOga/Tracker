@@ -65,8 +65,8 @@ public class StartUITest {
         actions.add(new ExitAction(out));
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
-                "Menu." + System.lineSeparator() +
-                        "0. Exit." + System.lineSeparator()
+                "Menu." + System.lineSeparator()
+                        + "0. Exit." + System.lineSeparator()
         ));
     }
 
@@ -82,13 +82,13 @@ public class StartUITest {
         actions.add(new ExitAction(out));
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
-                "Menu." + System.lineSeparator() +
-                        "0. Create a new request" + System.lineSeparator() +
-                        "1. Exit." + System.lineSeparator() +
-                        "=== Create a new request ====" + System.lineSeparator() +
-                        "Menu." + System.lineSeparator() +
-                        "0. Create a new request" + System.lineSeparator() +
-                        "1. Exit." + System.lineSeparator()
+                "Menu." + System.lineSeparator()
+                        + "0. Create a new request" + System.lineSeparator()
+                        + "1. Exit." + System.lineSeparator()
+                        + "=== Create a new request ====" + System.lineSeparator()
+                        + "Menu." + System.lineSeparator()
+                        + "0. Create a new request" + System.lineSeparator()
+                        + "1. Exit." + System.lineSeparator()
 
         ));
     }
@@ -104,15 +104,15 @@ public class StartUITest {
         actions.add(new CreateAction(out));
         actions.add(new FindByNameAction(out));
         actions.add(new ExitAction(out));
-        String menu = "Menu." + System.lineSeparator() +
-                "0. Create a new request" + System.lineSeparator() +
-                "1. Find by name." + System.lineSeparator() +
-                "2. Exit." + System.lineSeparator();
+        String menu = "Menu." + System.lineSeparator()
+                + "0. Create a new request" + System.lineSeparator()
+                + "1. Find by name." + System.lineSeparator()
+                + "2. Exit." + System.lineSeparator();
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
-                 menu + "=== Create a new request ====" +
-                         System.lineSeparator() + menu +
-                         menu
+                 menu + "=== Create a new request ===="
+                         + System.lineSeparator() + menu
+                         + menu
 
         ));
     }
@@ -128,10 +128,10 @@ public class StartUITest {
         actions.add(new CreateAction(out));
         actions.add(new FindByIdAction(out));
         actions.add(new ExitAction(out));
-        String menu = "Menu." + System.lineSeparator() +
-                "0. Create a new request" + System.lineSeparator() +
-                "1. Find by id." + System.lineSeparator() +
-                "2. Exit." + System.lineSeparator();
+        String menu = "Menu." + System.lineSeparator()
+                + "0. Create a new request" + System.lineSeparator()
+                + "1. Find by id." + System.lineSeparator()
+                + "2. Exit." + System.lineSeparator();
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
                 menu + "=== Create a new request ====" + System.lineSeparator()
@@ -145,7 +145,7 @@ public class StartUITest {
     public void whenInvalidExit() {
         Output out = new StubOutput();
         Input in = new StubInput(
-                new String[] { "123", "0" }
+                new String[] {"123", "0"}
         );
         Tracker tracker = new Tracker();
         ArrayList<UserAction> actions = new ArrayList<>();

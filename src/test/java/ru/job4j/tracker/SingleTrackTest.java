@@ -12,32 +12,30 @@ import static org.junit.Assert.assertThat;
 public class SingleTrackTest {
 
     @Test
-    public void SingleInternalThenEqual() {
+    public void singleInternalThenEqual() {
         Tracker tracker1 = SingleTrackerInternal.getInstance();
         Tracker tracker2 = SingleTrackerInternal.getInstance();
         assertThat(tracker1, is(tracker2));
     }
 
     @Test
-    public void SingleEnumThenEqual() {
+    public void singleEnumThenEqual() {
         Tracker tracker1 = SingleTrackerEnum.INSTANCE.getTracker();
         Tracker tracker2 = SingleTrackerEnum.INSTANCE.getTracker();
         assertThat(tracker1, is(tracker2));
     }
 
     @Test
-    public void SingleStaticFieldThenEqual() {
+    public void singleStaticFieldThenEqual() {
         Tracker tracker1 = SingleTrackerStaticField.getInstance();
         Tracker tracker2 = SingleTrackerStaticField.getInstance();
         assertThat(tracker1, is(tracker2));
     }
 
     @Test
-    public void SingleStaticFinalFieldThenEqual() {
+    public void singleStaticFinalFieldThenEqual() {
         Tracker tracker1 = SingleTrackerStaticFinalField.getInstance();
         Tracker tracker2 = SingleTrackerStaticFinalField.getInstance();
         assertThat(tracker1, is(tracker2));
     }
-
-
 }

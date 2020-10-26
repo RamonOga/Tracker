@@ -6,7 +6,7 @@ public class ShowAllAction implements UserAction {
 
     private final Output out;
 
-    public ShowAllAction(Output out){
+    public ShowAllAction(Output out) {
         this.out = out;
     }
 
@@ -16,7 +16,7 @@ public class ShowAllAction implements UserAction {
     }
 
     @Override
-    public boolean execute (Input input, Tracker tracker) {
+    public boolean execute(Input input, Tracker tracker) {
         List<Item> arrayItems;
         out.println("=== Show all items ====");
         arrayItems = tracker.findAll();

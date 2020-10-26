@@ -3,7 +3,7 @@ package ru.job4j.tracker;
 public class FindByIdAction implements UserAction {
     private final Output out;
 
-    public FindByIdAction(Output out){
+    public FindByIdAction(Output out) {
         this.out = out;
     }
 
@@ -14,7 +14,7 @@ public class FindByIdAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Tracker tracker) {
-        int inputI = input.askInt( "Enter ID for search: ");
+        int inputI = input.askInt("Enter ID for search: ");
         Item rsl = tracker.findById(inputI);
         if (rsl != null) {
             out.println(rsl);

@@ -32,7 +32,7 @@ public class User implements Comparable<User> {
         int compareName = this.getName().compareTo(o.getName());
         if (compareName == 0) {
             if (this.getAge() > o.getAge()) {
-                Integer.compare(this.getAge(), o.getAge());
+                return Integer.compare(this.getAge(), o.getAge());
             } else {
                 return this.getName().compareTo(o.getName());
             }
@@ -42,11 +42,15 @@ public class User implements Comparable<User> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
-        return age == user.age &&
-                Objects.equals(name, user.name);
+        return age == user.age
+                && Objects.equals(name, user.name);
     }
 
     @Override

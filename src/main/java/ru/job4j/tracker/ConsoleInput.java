@@ -4,12 +4,11 @@ import java.util.Scanner;
 
 public class ConsoleInput implements Input {
     private final Output out;
+    private Scanner scanner = new Scanner(System.in);
 
     public ConsoleInput(Output out) {
         this.out = out;
     }
-
-    Scanner scanner = new Scanner(System.in);
 
     @Override
     public String askStr(String question) {

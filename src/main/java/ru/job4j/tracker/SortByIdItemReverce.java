@@ -7,6 +7,4 @@ public class SortByIdItemReverce implements Comparator<Item> {
     public int compare(Item o1, Item o2) {
         return Integer.compare(o2.getId(), o1.getId());
     }
-
-
 }
