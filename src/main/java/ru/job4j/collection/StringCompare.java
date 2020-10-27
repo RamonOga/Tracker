@@ -9,20 +9,11 @@ public class StringCompare implements Comparator<String> {
         char[] leftArr = left.toCharArray();
         char[] rightArr = right.toCharArray();
         int minSize = Math.min(left.length(), right.length());
-        if (left.length() > right.length()) {
-            rsl = 1;
-        } else if (left.length() < right.length()) {
-            rsl = -1;
-        } else {
-            rsl = 0;
-        }
+        rsl = Integer.compare(left.length(), right.length());
         for (int i = 0; i < minSize; i++) {
-            if (leftArr[i] > rightArr[i]) {
-                rsl = 1;
-                break;
-            } else if (leftArr[i] < rightArr[i]) {
-                rsl = -1;
-                break;
+            int temp = Character.compare(leftArr[i], rightArr[i]);
+            if (temp != 0) {
+                return temp;
             }
         }
         return rsl;
