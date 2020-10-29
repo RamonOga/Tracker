@@ -8,21 +8,15 @@ public class Departments {
         List<String> rsl = new ArrayList<>();
         Set<String> temp = new LinkedHashSet<>();
         for (String s : deps) {
-            // temp.add(s.split("/"));
             String[] arr = s.split("/");
-            if (arr.length == 1) {
-                temp.add(arr[0]);
+            String text = arr[0];
+            temp.add(text);
+            for (int i = 1; i < arr.length; i++) {
+                text += "/" + arr[i];
+                temp.add(text);
             }
-            if (arr.length == 2) {
-                temp.add(arr[0]);
-                temp.add(arr[0] + "/" + arr[1]);
-            }
-            if (arr.length == 3) {
-                temp.add(arr[0] + "/" + arr[1]);
-                temp.add(arr[0] + "/" + arr[1] + "/" + arr[2]);
-            }
-
         }
+
         return rsl = List.copyOf(temp);
     }
 
@@ -34,3 +28,19 @@ public class Departments {
         orgs.sort(Comparator.reverseOrder());
     }
 }
+
+
+        /*for (String s : deps) {
+        String[] arr = s.split("/");
+        if (arr.length == 1) {
+        temp.add(arr[0]);
+        }
+        if (arr.length == 2) {
+        temp.add(arr[0]);
+        temp.add(arr[0] + "/" + arr[1]);
+        }
+        if (arr.length == 3) {
+        temp.add(arr[0] + "/" + arr[1]);
+        temp.add(arr[0] + "/" + arr[1] + "/" + arr[2]);
+        }
+        }*/
