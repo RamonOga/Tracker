@@ -16,7 +16,6 @@ public class Departments {
                 temp.add(text);
             }
         }
-
         return rsl = List.copyOf(temp);
     }
 
