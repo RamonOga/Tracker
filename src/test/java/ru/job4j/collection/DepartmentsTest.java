@@ -1,7 +1,5 @@
 package ru.job4j.collection;
 
-import junit.framework.TestCase;
-
 import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
