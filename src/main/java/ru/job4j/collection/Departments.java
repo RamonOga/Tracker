@@ -5,18 +5,15 @@ import java.util.*;
 public class Departments {
 
     public static List<String> fillGaps(List<String> deps) {
-        List<String> rsl = new ArrayList<>();
         Set<String> temp = new LinkedHashSet<>();
-        for (String s : deps) {
-            String[] arr = s.split("/");
-            String text = arr[0];
-            temp.add(text);
-            for (int i = 1; i < arr.length; i++) {
-                text += "/" + arr[i];
-                temp.add(text);
+        for (String value : deps) {
+            String start = "";
+            for (String el : value.split("/")) {
+                start = temp.contains(start) ? start + "/" + el : el;
+                temp.add(start);
             }
         }
-        return rsl = List.copyOf(temp);
+        return new ArrayList<>(temp);
     }
 
     public static void sortAsc(List<String> orgs) {
@@ -41,5 +38,15 @@ public class Departments {
         if (arr.length == 3) {
         temp.add(arr[0] + "/" + arr[1]);
         temp.add(arr[0] + "/" + arr[1] + "/" + arr[2]);
+        }
+        }*/
+
+/*for (String s : deps) {
+        String[] arr = s.split("/");
+        String text = arr[0];
+        temp.add(text);
+        for (int i = 1; i < arr.length; i++) {
+        text += "/" + arr[i];
+        temp.add(text);
         }
         }*/
