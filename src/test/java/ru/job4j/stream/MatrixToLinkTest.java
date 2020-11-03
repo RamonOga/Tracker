@@ -33,7 +33,6 @@ public class MatrixToLinkTest {
         MatrixToLink mat = new MatrixToLink();
         List<Integer> rsl = mat.arrToList(null);
         Assert.assertEquals(null, rsl);
-
     }
 
 
