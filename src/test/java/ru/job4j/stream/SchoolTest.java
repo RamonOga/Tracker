@@ -15,6 +15,7 @@ import static org.junit.Assert.*;
 
 public class SchoolTest {
     private List<Student> students = new ArrayList<>();
+    private List<Student> duplicateStudents = new ArrayList<>();
 
     @Before
     public void setUp() {
@@ -27,6 +28,12 @@ public class SchoolTest {
         students.add(new Student(70, "Surname7"));
         students.add(new Student(80, "Surname8"));
         students.add(new Student(90, "Surname9"));
+
+        duplicateStudents.add(new Student(10, "Surname1"));
+        duplicateStudents.add(new Student(10, "Surname1"));
+        duplicateStudents.add(new Student(10, "Surname1"));
+        duplicateStudents.add(new Student(20, "Surname1"));
+        duplicateStudents.add(new Student(10, "Surname2"));
     }
     Predicate<Student> prHigh =  s -> s.getScore() >= 70;
     Predicate<Student> prLow =  s -> s.getScore() <= 40;
@@ -79,6 +86,19 @@ public class SchoolTest {
         expected.put("Surname7" ,new Student(70, "Surname7"));
         expected.put("Surname8" ,new Student(80, "Surname8"));
         expected.put("Surname9" ,new Student(90, "Surname9"));
+
+        Assert.assertEquals(expected, rsl);
+    }
+
+    @Test
+    public void whenTranferToDuplicate() {
+        School sc = new School();
+        Map<String, Student> rsl = sc.transformToMap(duplicateStudents);
+        Map<String, Student> expected = new LinkedHashMap<>();
+
+        expected.put("Surname1", new Student(10, "Surname1"));
+        expected.put("Surname2", new Student(10, "Surname2"));
+
 
         Assert.assertEquals(expected, rsl);
     }
