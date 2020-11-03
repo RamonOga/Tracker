@@ -24,7 +24,7 @@ public class ProfileTest {
 
 
         );
-        List<Address> rsl = Profile.collect(proList);
+        List<Address> rsl = Profiles.collect(proList);
         Assert.assertEquals(rsl, expect);
 
     }

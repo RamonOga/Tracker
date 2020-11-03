@@ -17,16 +17,7 @@ public class Profile {
         this.address = address;
     }
 
-    static List<Address> collect(List<Profile> input) {
-        return input.stream()
-                        .sorted(Comparator.comparing( o -> o.getAddress().getCity()))
-                        .map(Profile::getAddress)
-                        .distinct()
-                        .collect(Collectors.toList());
-
-    }
-
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         List<Profile> proList = new ArrayList<>(List.of(
                 new Profile(new Address("Msk", "Lenin st", 1, 1))
                 , new Profile(new Address("Spb", "Marks st", 2, 2))
@@ -40,6 +31,6 @@ public class Profile {
 
         System.out.println(a);
 
-                System.out.println(Profile.collect(proList));
-    }
+                System.out.println(Profiles.collect(proList));
+    }*/
 }
