@@ -2,7 +2,6 @@ package ru.job4j.bank;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class BankService {
     private Map<User, List<Account>> users = new HashMap<>();
@@ -30,12 +29,6 @@ public class BankService {
                .get(passport);
         return rsl;
     }
-     /* for (User user : users.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                rsl = user;
-                break;
-            }
-        }*/
 
     public Account findByRequisite(String passport, String requisite)  {
         Account rsl = null;
@@ -43,9 +36,11 @@ public class BankService {
         if (user != null) {
             List<Account> accounts = users.get(user);
             if (accounts != null) {
-                rsl = accounts.stream()
-                        .collect(Collectors.toMap(a -> a.getRequisite(), a -> a))
-                        .get(requisite);
+               rsl = accounts.stream()
+                       .filter(a -> a.getRequisite()
+                               .equals(requisite))
+                       .findFirst()
+                       .orElse(null);
             }
         }
         return rsl;
@@ -92,4 +87,3 @@ public class BankService {
         System.out.println(bank.findByPassport("312"));
     }
 }
-
