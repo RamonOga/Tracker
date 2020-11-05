@@ -30,7 +30,12 @@ public class BankService {
                .get(passport);
         return rsl;
     }
-
+     /* for (User user : users.keySet()) {
+            if (user.getPassport().equals(passport)) {
+                rsl = user;
+                break;
+            }
+        }*/
 
     public Account findByRequisite(String passport, String requisite)  {
         Account rsl = null;
