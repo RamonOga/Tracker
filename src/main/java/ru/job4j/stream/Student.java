@@ -2,15 +2,21 @@ package ru.job4j.stream;
 
 import java.util.Objects;
 
-public class Student {
-    private int score;
+public class Student implements Comparable {
 
+    private int score;
     private String surname;
 
     public Student(int score, String surname) {
         this.score = score;
         this.surname = surname;
     }
+
+    public Student(String surname, int score) {
+        this.score = score;
+        this.surname = surname;
+    }
+
 
     public int getScore() {
         return score;
@@ -36,5 +42,12 @@ public class Student {
     @Override
     public int hashCode() {
         return Objects.hash(score, surname);
+    }
+
+
+    @Override
+    public int compareTo(Object o) {
+        Student tmp = (Student) o;
+        return this.surname.compareTo(tmp.surname);
     }
 }
