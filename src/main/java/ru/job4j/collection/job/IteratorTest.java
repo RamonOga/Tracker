@@ -2,7 +2,7 @@ package ru.job4j.collection.job;
 
 import java.util.*;
 
-public class IteratorTest implements Iterable {
+public class IteratorTest {
 
     public static void main (String[] args) {
         List<Integer> arrList = new ArrayList<>();
@@ -20,7 +20,7 @@ public class IteratorTest implements Iterable {
         treeSet = Set.of(intArr);
 
         Iterator<Integer> a = hashSet.iterator();
-        
+
      }
      public static List<Integer> fillShit(Integer[] input) {
         List<Integer> rsl = new ArrayList<>() ;
