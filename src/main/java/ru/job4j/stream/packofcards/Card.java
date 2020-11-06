@@ -1,5 +1,7 @@
 package ru.job4j.stream.packofcards;
 
+import javax.swing.text.BadLocationException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,17 +17,24 @@ public class Card {
         this.value = value;
     }
 
+    @Override
+    public String toString() {
+        return "Card{" +
+                "suit=" + suit +
+                ", value=" + value +
+                '}';
+    }
+
     public static void main(String[] args) {
-        List<Suit> suits = Stream.of(Suit.values()).collect(Collectors.toList());
-        List<Value> values = Stream.of(Value.values()).collect(Collectors.toList());
-        Map<Integer, String> cards = new HashMap<>();
-        Integer count = 0;
-        for (Suit s : suits) {
-            for (Value v : values) {
-            cards.put(count, "" + s + v);
-            count++;
-            }
-        }
-        System.out.println(cards);
+
+        List<Suit> suits = Stream.of(Suit.values())
+                .collect(Collectors.toList());
+        List<Value> values = Stream.of(Value.values())
+                .collect(Collectors.toList());
+        List<Card> cards = suits.stream()
+                .flatMap(a -> values.stream()
+                        .map(b -> new Card(a, b)))
+                .collect(Collectors.toList());
+        cards.forEach(System.out::println);
     }
 }
