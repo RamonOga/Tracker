@@ -3,10 +3,9 @@ package ru.job4j.bank;
 import java.util.*;
 
 public class BankService {
-    private Map<Optional<User>, List<Account>> users = new HashMap<>();
+    private Map<User, List<Account>> users = new HashMap<>();
 
-    public void addUser(User input) {
-      Optional<User> user =  Optional.of(input);
+    public void addUser(User user) {
         users.putIfAbsent(user, new ArrayList<Account>());
     }
 
@@ -14,15 +13,15 @@ public class BankService {
        Optional<User> user;
         user = findByPassport(passport);
         if (user.isPresent()) {
-            if (!users.get(user).contains(account)) {
-                users.get(user).add(account);
+            if (!users.get(user.get()).contains(account)) {
+                users.get(user.get()).add(account);
             }
         }
     }
 
     public Optional<User> findByPassport(String passport) {
         return users.keySet()
-               .stream().map(Optional::get)
+               .stream()
                .filter(a -> a.getPassport().equals(passport))
                .findFirst();
 
@@ -32,7 +31,7 @@ public class BankService {
        Optional<Account> rsl = Optional.empty();
        Optional <User> user = findByPassport(passport);
         if (user.isPresent()) {
-            List<Account> accounts = users.get(user);
+            List<Account> accounts = users.get(user.get());
             if (accounts != null) {
                rsl = accounts.stream()
                        .filter(a -> a.getRequisite()
