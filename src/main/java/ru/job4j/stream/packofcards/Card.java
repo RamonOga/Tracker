@@ -31,6 +31,7 @@ public class Card {
                 .collect(Collectors.toList());
         List<Value> values = Stream.of(Value.values())
                 .collect(Collectors.toList());
+
         List<Card> cards = suits.stream()
                 .flatMap(a -> values.stream()
                         .map(b -> new Card(a, b)))
