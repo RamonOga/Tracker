@@ -80,7 +80,7 @@ public class BankService {
         bank.findByRequisite("123", "123");
         bank.transferMoney("123", "123", "321", "321", 100D);
         System.out.println(bank.findByRequisite("321", "321").get().getBalance());
-        System.out.println(bank.findByPassport("312"));
-        System.out.println(bank.findByRequisite("312", "321"));
+        System.out.println(user1);
+        System.out.println(user2);
     }
 }
