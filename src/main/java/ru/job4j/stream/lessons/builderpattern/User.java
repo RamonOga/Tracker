@@ -1,8 +1,10 @@
 package ru.job4j.stream.lessons.builderpattern;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class User {
+
     String name;
     String surname;
     String address;
@@ -10,6 +12,8 @@ public class User {
     int age;
     String workPlace;
     UUID UUID;
+    int[] array;
+
 
     @Override
     public String   toString() {
@@ -26,7 +30,6 @@ public class User {
 
     public static class Build {
 
-
         private User user;
 
         public Build() {
@@ -35,6 +38,11 @@ public class User {
 
         public Build nameUser(String input) {
             this.user.name = input;
+            return this;
+        }
+
+        public Build arrUser(int size) {
+            this.user.array = new int[size];
             return this;
         }
 
@@ -68,10 +76,11 @@ public class User {
             return this;
         }
 
+
+
         public User userBuild() {
             return user;
         }
 
     }
-
 }
