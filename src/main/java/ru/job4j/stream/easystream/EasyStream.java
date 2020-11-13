@@ -16,10 +16,6 @@ public class EasyStream {
         list = input;
     }
 
-    private void setList(List<Integer> list) {
-        EasyStream.list = list;
-    }
-
     private static List<Integer> getList() {
         return list;
     }
@@ -30,8 +26,6 @@ public class EasyStream {
 
     public static EasyStream of(List<Integer> source) {
     //throw new UnsupportedOperationException();
-       // EasyStream rsl = new EasyStream();
-      //  rsl.setList(source);
         return new EasyStream(source);
     }
 
