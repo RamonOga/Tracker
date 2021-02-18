@@ -1,4 +1,8 @@
-package ru.job4j.tracker;
+package ru.job4j.tracker.actions;
+
+import ru.job4j.tracker.*;
+import ru.job4j.tracker.io.Input;
+import ru.job4j.tracker.io.Output;
 
 public class FindByIdAction implements UserAction {
     private final Output out;
@@ -13,9 +17,9 @@ public class FindByIdAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, MemTracker memTracker) {
         int inputI = input.askInt("Enter ID for search: ");
-        Item rsl = tracker.findById(inputI);
+        Item rsl = memTracker.findById(inputI);
         if (rsl != null) {
             out.println(rsl);
         } else {

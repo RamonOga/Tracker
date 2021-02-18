@@ -1,6 +1,10 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
+import ru.job4j.tracker.comparators.SortByIdItem;
+import ru.job4j.tracker.comparators.SortByIdItemReverce;
+import ru.job4j.tracker.comparators.SortByNameItem;
+import ru.job4j.tracker.comparators.SortByNameItemReverce;
 
 import java.util.ArrayList;
 import java.util.List;

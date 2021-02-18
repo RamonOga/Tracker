@@ -14,20 +14,6 @@ public class User {
     UUID UUID;
     int[] array;
 
-
-    @Override
-    public String   toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", address='" + address + '\'' +
-                ", id=" + id +
-                ", age=" + age +
-                ", workPlace='" + workPlace + '\'' +
-                ", UUID=" + UUID +
-                '}';
-    }
-
     public static class Build {
 
         private User user;
@@ -82,5 +68,18 @@ public class User {
             return user;
         }
 
+    }
+
+    @Override
+    public String   toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", address='" + address + '\'' +
+                ", id=" + id +
+                ", age=" + age +
+                ", workPlace='" + workPlace + '\'' +
+                ", UUID=" + UUID +
+                '}';
     }
 }

@@ -1,17 +1,17 @@
 package ru.job4j.tracker.singleton;
 
-import ru.job4j.tracker.Tracker;
+import ru.job4j.tracker.MemTracker;
 
 public class SingleTrackerInternal {
 
     private SingleTrackerInternal() {
     }
 
-    public static Tracker getInstance() {
+    public static MemTracker getInstance() {
         return Holder.INCTANCE;
     }
 
     private static final class Holder {
-        private static final Tracker INCTANCE = new Tracker();
+        private static final MemTracker INCTANCE = new MemTracker();
     }
 }
