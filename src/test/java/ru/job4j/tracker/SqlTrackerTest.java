@@ -14,7 +14,8 @@ import java.util.Properties;
 public class SqlTrackerTest {
 
     public Connection init() {
-        try (InputStream in = SqlTracker.class.getClassLoader().getResourceAsStream("app.properties")) {
+        try (InputStream in = SqlTracker.class.getClassLoader()
+                .getResourceAsStream("app.properties")) {
             Properties config = new Properties();
             config.load(in);
             Class.forName(config.getProperty("driver-class-name"));
@@ -22,7 +23,6 @@ public class SqlTrackerTest {
                     config.getProperty("url"),
                     config.getProperty("username"),
                     config.getProperty("password")
-
             );
         } catch (Exception e) {
             throw new IllegalStateException(e);
@@ -66,8 +66,8 @@ public class SqlTrackerTest {
             tracker.add(new Item("asc"));
             String descId = String.valueOf(tracker.findByName("desc").get(0).getId());
             String ascId = String.valueOf(tracker.findByName("asc").get(0).getId());
-            Assert.assertEquals(tracker.findById(descId).getName(),"desc");
-            Assert.assertEquals(tracker.findById(ascId).getName(),"asc");
+            Assert.assertEquals(tracker.findById(descId).getName(), "desc");
+            Assert.assertEquals(tracker.findById(ascId).getName(), "asc");
             tracker.delete(descId);
             tracker.delete(ascId);
             Assert.assertEquals(tracker.findByName("asc").size(), 0);

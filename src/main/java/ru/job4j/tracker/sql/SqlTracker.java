@@ -11,11 +11,11 @@ import java.util.Properties;
 public class SqlTracker implements Store {
     private Connection cn;
 
-    public SqlTracker (Connection connection) {
+    public SqlTracker(Connection connection) {
         this.cn = connection;
     }
 
-    public SqlTracker () {
+    public SqlTracker() {
     }
 
     public void init() {
