@@ -25,7 +25,7 @@ notifications:
     on_success: never # default: change
     on_failure: always # default: always
 
-#This shit add by Markelov Roman
+#This shit add by Markelov Roman.
 env:
   global:
     - CODECOV_TOKEN="d209b9c1-dcec-4e55-9a82-342aaf73f05f"
