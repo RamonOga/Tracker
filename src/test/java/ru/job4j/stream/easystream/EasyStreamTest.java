@@ -1,16 +1,18 @@
 package ru.job4j.stream.easystream;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.is;
+
+import org.junit.Ignore;
 import org.junit.Test;
 import java.util.List;
 
 public class EasyStreamTest {
-
     @Test
     public void whenEmptySource() {
         var rsl = EasyStream.of(List.of()).collect();
-        assertThat(rsl, is(List.of()));
+        assertEquals(List.of(), rsl);
     }
 
     @Test

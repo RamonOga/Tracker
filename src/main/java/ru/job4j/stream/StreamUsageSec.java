@@ -19,8 +19,9 @@ public class StreamUsageSec {
                     new Task("Bug #3", 40)
             );
             tasks.stream()
-                    //.filter(task -> task.name.contains("Bug")) если только больше 30, то этот блок не нужен
-                    .filter(task -> task.spent > 30 )
+                    //.filter(task -> task.name.contains("Bug"))
+                    // если только больше 30, то этот блок не нужен
+                    .filter(task -> task.spent > 30)
                     .map(task -> task.name + " " + task.spent)
                     .forEach(System.out::println);
         }

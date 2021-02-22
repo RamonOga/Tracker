@@ -13,24 +13,22 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class StreamTest {
-    List<String> listStr = List.of("java", "js", "C++", "C#", "go", "kotlin");
-    List<Integer> listInt = IntStream.range(1, 10)
+    private List<String> listStr = List.of("java", "js", "C++", "C#", "go", "kotlin");
+    private List<Integer> listInt = IntStream.range(1, 10)
             .boxed()
             .collect(Collectors.toList());
-    List<User> listUser = List.of(new User(1, "Ramon", "1234")
-                                , new User(2, "Gamon", "2341")
-                                , new User(3, "Bamon", "3412")
-                                , new User(4, "Vamon", "4123") );
+    private List<User> listUser = List.of(new User(1, "Ramon", "1234"),
+                                new User(2, "Gamon", "2341"),
+                                new User(3, "Bamon", "3412"),
+                                new User(4, "Vamon", "4123"));
 
-
-
-    public List<String> ListIntToString() {
+    public List<String> listIntToString() {
         return listInt.stream()
                 .map(a -> a.toString())
                 .collect(Collectors.toList());
     }
 
-    public Map<Integer ,String> listToSet() {
+    public Map<Integer, String> listToSet() {
         return listUser.stream()
                 .collect(Collectors.toMap(
                         key -> key.getId(),
@@ -39,32 +37,27 @@ public class StreamTest {
     }
 
     public List<User> changeAllPass() {
-        return listUser.stream().peek(a -> a.setPassword(UUID.randomUUID().toString())).collect(Collectors.toList());
+        return listUser.stream()
+                .peek(a -> a.setPassword(UUID.randomUUID()
+                        .toString()))
+                .collect(Collectors.toList());
     }
 
     public Optional<Integer> intTo() {
-        return listInt.stream().reduce((a,b) -> a + b);
+        return listInt.stream().reduce((a, b) -> a + b);
     }
 
     public void toBreak() {
-
         listUser.add(new User());
-
     }
 
-
-
     public static void main(String[] args) {
-        List<User> listUser = List.of(new User(1, "Ramon", "1234")
-                , new User(2, "Gamon", "2341")
-                , new User(3, "Bamon", "3412")
-                , new User(4, "Vamon", "4123") );
+        List<User> listUser = List.of(new User(1, "Ramon", "1234"),
+                new User(2, "Gamon", "2341"),
+                new User(3, "Bamon", "3412"),
+                new User(4, "Vamon", "4123"));
         List<String> list = List.of("ghyk");
 
         listUser.add(new User());
-
-
-
     }
-
 }

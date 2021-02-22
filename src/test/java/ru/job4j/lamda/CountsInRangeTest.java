@@ -1,12 +1,9 @@
 package ru.job4j.lamda;
 
-import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
-import static org.junit.Assert.*;
-
 
 public class CountsInRangeTest {
 
@@ -29,7 +26,7 @@ public class CountsInRangeTest {
     @Test
     public void whenLinearFunctionThenPowResults() {
         CountsInRange function = new CountsInRange();
-        List<Double> result = function.diapason(5, 8, x -> Math.pow(x,x));
+        List<Double> result = function.diapason(5, 8, x -> Math.pow(x, x));
         List<Double> expected = Arrays.asList(3125D, 46656D, 823543D);
         Assert.assertEquals(result, expected);
     }

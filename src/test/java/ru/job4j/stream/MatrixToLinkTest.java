@@ -11,7 +11,7 @@ public class MatrixToLinkTest {
     @Test
     public void matrixToLinkTest0() {
         MatrixToLink mat = new MatrixToLink();
-        Integer[][] input = { {1,2,3}, {4,5,6}, {7,8,9} };
+        Integer[][] input = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         List<Integer> rsl = mat.arrToList(input);
         List<Integer> expect = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
         Assert.assertEquals(expect, rsl);
@@ -21,7 +21,7 @@ public class MatrixToLinkTest {
     @Test
     public void matrixToLinkTest1() {
         MatrixToLink mat = new MatrixToLink();
-        Integer[][] input = { {1}, {}, {} };
+        Integer[][] input = {{1}, {}, {}};
         List<Integer> rsl = mat.arrToList(input);
         List<Integer> expect = Arrays.asList(1);
         Assert.assertEquals(expect, rsl);
@@ -34,8 +34,4 @@ public class MatrixToLinkTest {
         List<Integer> rsl = mat.arrToList(null);
         Assert.assertEquals(null, rsl);
     }
-
-
-
-
 }

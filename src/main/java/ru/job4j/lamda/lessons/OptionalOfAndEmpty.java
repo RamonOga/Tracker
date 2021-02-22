@@ -10,9 +10,10 @@ public class OptionalOfAndEmpty {
                .filter(a -> a.equals(value))
                .findFirst();
     }
+
     public static Optional<String> findValue2(List<String> strings, String value) {
-        if(strings.contains(value)) {
-            for(String s : strings) {
+        if (strings.contains(value)) {
+            for (String s : strings) {
                 if (s.equals(value)) {
                     return Optional.of(s);
                 }

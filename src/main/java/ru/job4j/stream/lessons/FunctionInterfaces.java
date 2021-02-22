@@ -14,7 +14,7 @@ public class FunctionInterfaces {
 //}
     BinaryOperator<String> biString = (a, b) -> a + b;
     BinaryOperator<Integer> biInt = Integer::sum;
-    BinaryOperator<User> changeUser = (first , second) -> {
+    BinaryOperator<User> changeUser = (first, second) -> {
         String tmp;
         tmp = first.getUsername();
         first.setUsername(second.getUsername());
@@ -67,7 +67,7 @@ public class FunctionInterfaces {
         List<String> list1 = new LinkedList<>();
         List<Integer> list2 = new LinkedList<>();
         Consumer<String> cons1 = list1::add;
-        Consumer<Integer> cons2 = x-> list2.add(x);
+        Consumer<Integer> cons2 = x -> list2.add(x);
         Consumer<User> cons3 = x -> x.setPassword(UUID.randomUUID().toString());
 
         cons1.accept("123");

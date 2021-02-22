@@ -1,9 +1,7 @@
 package ru.job4j.lamda;
 import java.util.Comparator;
 
-
 public class LambdaDebug {
-
     private Comparator<String> cmpText = (left, right) -> {
         System.out.println("Compare = " + left + " : " + right);
         return left.compareTo(right);
@@ -11,6 +9,6 @@ public class LambdaDebug {
 
     private Comparator<String> cmpDescSize = (left, right) -> {
         System.out.println("Compare = " + left + " : " + right);
-        return Integer.compare(right.length(), left.length()) ;
+        return Integer.compare(right.length(), left.length());
     };
 }

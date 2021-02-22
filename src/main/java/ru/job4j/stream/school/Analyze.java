@@ -30,8 +30,6 @@ public class Analyze {
                                 .mapToInt(a -> a.intValue())
                                 .average().orElse(-1D)))
                 .collect(Collectors.toList());
-
-
     }
 
     public static List<Tuple> averageScoreByPupil(Stream<Pupil> stream) {
@@ -52,7 +50,7 @@ public class Analyze {
                                 .map(Subject::getScore)
                                 .mapToInt(a -> a.intValue())
                                 .sum()))
-                .max((o1, o2) ->Double.compare(o1.getScore(), o2.getScore())).orElse(null);
+                .max((o1, o2) -> Double.compare(o1.getScore(), o2.getScore())).orElse(null);
     }
 
     public static Tuple bestSubject(Stream<Pupil> stream) {

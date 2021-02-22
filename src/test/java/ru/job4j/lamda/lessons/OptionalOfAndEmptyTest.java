@@ -29,6 +29,7 @@ public class OptionalOfAndEmptyTest {
                 )
         );
     }
+
     @Test
     public void whenExists2() {
         Assert.assertEquals(

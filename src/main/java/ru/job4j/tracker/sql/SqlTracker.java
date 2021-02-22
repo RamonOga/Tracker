@@ -1,6 +1,7 @@
-package ru.job4j.tracker;
+package ru.job4j.tracker.sql;
 
-import java.io.FileReader;
+import ru.job4j.tracker.Item;
+
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,9 +11,16 @@ import java.util.Properties;
 public class SqlTracker implements Store {
     private Connection cn;
 
+    public SqlTracker (Connection connection) {
+        this.cn = connection;
+    }
+
+    public SqlTracker () {
+    }
+
     public void init() {
-        try (/*InputStream in = SqlTracker.class.getClassLoader().getResourceAsStream("./src/main/resources/app.properties")*/
-                FileReader in = new FileReader("./src/main/resources/app.properties")) {
+        try (InputStream in = SqlTracker.class.getClassLoader()
+                .getResourceAsStream("app.properties")) {
             Properties config = new Properties();
             config.load(in);
             Class.forName(config.getProperty("driver-class-name"));
@@ -23,17 +31,6 @@ public class SqlTracker implements Store {
             );
         } catch (Exception e) {
             throw new IllegalStateException(e);
-        }
-    }
-
-    @Override
-    public void close() {
-        if (cn != null) {
-            try {
-                cn.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
         }
     }
 
@@ -94,7 +91,7 @@ public class SqlTracker implements Store {
         Item rsl = null;
         String query = String.format("select * from items where id='%s';", id);
         ResultSet rs = executeQueryWithResultSet(query);
-        try{
+        try {
             rs.next();
             rsl = new Item(rs.getInt("id"), rs.getString("name"));
         } catch (SQLException se) {
@@ -113,7 +110,7 @@ public class SqlTracker implements Store {
 
     private boolean executeQuery(String query) {
         boolean rsl = false;
-        try(Statement st = cn.createStatement()) {
+        try (Statement st = cn.createStatement()) {
             st.execute(query);
             if (st.getUpdateCount() > 0) {
                 rsl =  true;
@@ -123,14 +120,26 @@ public class SqlTracker implements Store {
         }
         return rsl;
     }
+
     private ResultSet executeQueryWithResultSet(String query) {
         ResultSet rsl = null;
-        try(Statement st = cn.createStatement()) {
+        try (Statement st = cn.createStatement()) {
             st.execute(query);
             rsl = st.getResultSet();
         } catch (SQLException se) {
             se.printStackTrace();
         }
         return rsl;
+    }
+
+    @Override
+    public void close() {
+        if (cn != null) {
+            try {
+                cn.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
     }
 }

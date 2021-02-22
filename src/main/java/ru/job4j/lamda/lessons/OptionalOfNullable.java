@@ -9,7 +9,7 @@ public class OptionalOfNullable {
             if (s == null) {
                 return Optional.ofNullable(s);
             }
-            if(s.equals(value)) {
+            if (s.equals(value)) {
                 return Optional.of(s);
             }
         }

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Map;
 
-
 public class School {
 
     public List<Student> collect(List<Student> list, Predicate<Student> pred) {

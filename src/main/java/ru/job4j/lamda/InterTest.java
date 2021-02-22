@@ -20,6 +20,6 @@ public class InterTest {
               return   x + y;
             }
         });
-        runner.run((x,y) -> x+y);
+        runner.run((x, y) -> x + y);
     }
 }

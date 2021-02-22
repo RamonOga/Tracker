@@ -9,10 +9,10 @@ public class GroupMethod {
 
     public static class User {
 
+        private static int count = 0;
         private int age;
         private String name;
         private int id;
-        private static int count = 0;
 
         public User(int age, String name) {
             this.age = age;
@@ -38,8 +38,8 @@ public class GroupMethod {
                 return false;
             }
             User user = (User) o;
-            return age == user.age &&
-                    Objects.equals(name, user.name);
+            return age == user.age
+                    && Objects.equals(name, user.name);
         }
 
         @Override
@@ -49,11 +49,11 @@ public class GroupMethod {
 
         @Override
         public String toString() {
-            return "User{" +
-                    "age=" + age +
-                    ", name='" + name + '\'' +
-                    ", id ='" + id + '\'' +
-                    '}';
+            return "User{"
+                    + "age=" + age
+                    + ", name='" + name + '\''
+                    + ", id ='" + id + '\''
+                    + '}';
         }
     }
 

@@ -60,7 +60,11 @@ public class SummingMethod {
 
     public static Map<String, Integer> summing(List<User> users) {
        return users.stream().collect(Collectors
-               .groupingBy(a -> a.getName(), Collectors.summingInt(b -> b.getBills().stream().mapToInt(x -> x.getBalance()).sum())));
+               .groupingBy(a -> a.getName(), Collectors
+                       .summingInt(b -> b.getBills()
+                               .stream()
+                               .mapToInt(x -> x.getBalance())
+                               .sum())));
     }
 
 }

@@ -9,7 +9,7 @@ public class SearchAtt {
     public static List<Attachment> filter(List<Attachment> list, Predicate<Attachment> pred) {
         List<Attachment> rsl = new ArrayList<>();
         for (Attachment att : list) {
-            if(pred.test(att)) {
+            if (pred.test(att)) {
                 rsl.add(att);
             }
         }
@@ -21,7 +21,7 @@ public class SearchAtt {
             @Override
             public boolean test(Attachment attachment) {
                 boolean rsl = false;
-                if(attachment.getSize() > 100) {
+                if (attachment.getSize() > 100) {
                     rsl = true;
                 }
                 return rsl;

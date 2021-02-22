@@ -1,7 +1,6 @@
 package ru.job4j.stream;
 import java.util.List;
 
-
 public class StreamUsage {
     public static class Task {
         private final String name;
@@ -21,7 +20,7 @@ public class StreamUsage {
         );
         tasks.stream()
                 .filter(task -> task.name.contains("Bug"))
-                .filter(task -> task.spent > 30 )
+                .filter(task -> task.spent > 30)
                 .map(task -> task.name + " " + task.spent)
                 .forEach(System.out::println);
     }

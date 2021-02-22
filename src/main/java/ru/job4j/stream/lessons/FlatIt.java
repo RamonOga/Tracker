@@ -8,8 +8,16 @@ public class FlatIt {
     public static List<Integer> flatten(Iterator<Iterator<Integer>> it) {
         List<Integer> rsl = new ArrayList<>();
         while (it.hasNext()) {
-            rsl.add(it.next().next());
+           rsl.addAll(flat(it.next()));
         }
-        return new ArrayList<>();
+        return rsl;
+    }
+
+    public static List<Integer> flat(Iterator<Integer> it) {
+        List<Integer> rsl = new ArrayList<>();
+            while (it.hasNext()) {
+                rsl.add(it.next());
+            }
+        return rsl;
     }
 }

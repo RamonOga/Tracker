@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class CharsMethod {
-   public static boolean shit(char[] a, char[] b ) {
+   public static boolean shit(char[] a, char[] b) {
        boolean rsl = true;
-       for (int i = 0; i < a.length - 1; i++) {
+       for (int i = 0; i < b.length - 1; i++) {
            if (a[i] != b[i]) {
                return false;
            }

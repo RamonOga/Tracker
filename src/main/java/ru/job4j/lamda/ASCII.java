@@ -5,7 +5,6 @@ public class ASCII {
     private int x = 111;
     private String y = "222";
 
-
     public static void getAZ() {
         for (int i = 65; i < 65 + 26; i++) {
             System.out.println((char) i + ": " + i);

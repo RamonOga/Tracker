@@ -29,7 +29,7 @@ public class BankService {
 
     public Optional<Account> findByRequisite(String passport, String requisite)  {
        Optional<Account> rsl = Optional.empty();
-       Optional <User> user = findByPassport(passport);
+       Optional<User> user = findByPassport(passport);
         if (user.isPresent()) {
             List<Account> accounts = users.get(user.get());
             if (accounts != null) {

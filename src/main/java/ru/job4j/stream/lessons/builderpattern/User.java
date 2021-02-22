@@ -1,18 +1,17 @@
 package ru.job4j.stream.lessons.builderpattern;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 public class User {
 
-    String name;
-    String surname;
-    String address;
-    int id;
-    int age;
-    String workPlace;
-    UUID UUID;
-    int[] array;
+    private String name;
+    private String surname;
+    private String address;
+    private int id;
+    private int age;
+    private String workPlace;
+    private UUID uuid;
+    private int[] array;
 
     public static class Build {
 
@@ -58,28 +57,25 @@ public class User {
         }
 
         public Build uuidUser() {
-            this.user.UUID = java.util.UUID.randomUUID();
+            this.user.uuid = java.util.UUID.randomUUID();
             return this;
         }
-
-
 
         public User userBuild() {
             return user;
         }
-
     }
 
     @Override
     public String   toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", address='" + address + '\'' +
-                ", id=" + id +
-                ", age=" + age +
-                ", workPlace='" + workPlace + '\'' +
-                ", UUID=" + UUID +
-                '}';
+        return "User{"
+                + "name='" + name + '\''
+                + ", surname='" + surname + '\''
+                + ", address='" + address + '\''
+                + ", id=" + id
+                + ", age=" + age
+                + ", workPlace='" + workPlace + '\''
+                + ", UUID=" + uuid
+                + '}';
     }
 }

@@ -16,6 +16,9 @@ import static org.junit.Assert.*;
 public class SchoolTest {
     private List<Student> students = new ArrayList<>();
     private List<Student> duplicateStudents = new ArrayList<>();
+    private Predicate<Student> prHigh =  s -> s.getScore() >= 70;
+    private Predicate<Student> prLow =  s -> s.getScore() <= 40;
+    private Predicate<Student> prMid =  prHigh.negate().and(prLow.negate());
 
     @Before
     public void setUp() {
@@ -35,9 +38,6 @@ public class SchoolTest {
         duplicateStudents.add(new Student(20, "Surname1"));
         duplicateStudents.add(new Student(10, "Surname2"));
     }
-    Predicate<Student> prHigh =  s -> s.getScore() >= 70;
-    Predicate<Student> prLow =  s -> s.getScore() <= 40;
-    Predicate<Student> prMid =  prHigh.negate().and(prLow.negate());
 
     @Test
     public void whenCollectClassA() {
@@ -77,15 +77,15 @@ public class SchoolTest {
         School sc = new School();
         Map<String, Student> rsl = sc.transformToMap(students);
         Map<String, Student> expected = new LinkedHashMap<>();
-        expected.put("Surname1" ,new Student(10, "Surname1"));
-        expected.put("Surname2" ,new Student(20, "Surname2"));
-        expected.put("Surname3" ,new Student(30, "Surname3"));
-        expected.put("Surname4" ,new Student(40, "Surname4"));
-        expected.put("Surname5" ,new Student(50, "Surname5"));
-        expected.put("Surname6" ,new Student(60, "Surname6"));
-        expected.put("Surname7" ,new Student(70, "Surname7"));
-        expected.put("Surname8" ,new Student(80, "Surname8"));
-        expected.put("Surname9" ,new Student(90, "Surname9"));
+        expected.put("Surname1", new Student(10, "Surname1"));
+        expected.put("Surname2", new Student(20, "Surname2"));
+        expected.put("Surname3", new Student(30, "Surname3"));
+        expected.put("Surname4", new Student(40, "Surname4"));
+        expected.put("Surname5", new Student(50, "Surname5"));
+        expected.put("Surname6", new Student(60, "Surname6"));
+        expected.put("Surname7", new Student(70, "Surname7"));
+        expected.put("Surname8", new Student(80, "Surname8"));
+        expected.put("Surname9", new Student(90, "Surname9"));
 
         Assert.assertEquals(expected, rsl);
     }
@@ -95,11 +95,8 @@ public class SchoolTest {
         School sc = new School();
         Map<String, Student> rsl = sc.transformToMap(duplicateStudents);
         Map<String, Student> expected = new LinkedHashMap<>();
-
         expected.put("Surname1", new Student(10, "Surname1"));
         expected.put("Surname2", new Student(10, "Surname2"));
-
-
         Assert.assertEquals(expected, rsl);
     }
 }

@@ -33,22 +33,22 @@ public class DepDescCompTest {
 
     @Test
     public void whenUpDepartmentFullSort() {
-        List<String> input = new ArrayList<>(List.of("K1", "K1/SK1", "K1/SK2", "K1/SK1/SSK1"
-                , "K1/SK1/SSK2","K2", "K2/SK1", "K2/SK1/SSK1", "K2/SK1/SSK2"));
-        List<String> expect = new ArrayList<>(List.of("K2", "K2/SK1", "K2/SK1/SSK1", "K2/SK1/SSK2"
-                , "K1", "K1/SK1", "K1/SK1/SSK1", "K1/SK1/SSK2", "K1/SK2"));
+        List<String> input = new ArrayList<>(List.of("K1", "K1/SK1", "K1/SK2", "K1/SK1/SSK1",
+                "K1/SK1/SSK2", "K2", "K2/SK1", "K2/SK1/SSK1", "K2/SK1/SSK2"));
+        List<String> expect = new ArrayList<>(List.of("K2", "K2/SK1", "K2/SK1/SSK1", "K2/SK1/SSK2",
+                "K1", "K1/SK1", "K1/SK1/SSK1", "K1/SK1/SSK2", "K1/SK2"));
         Comparator<String> comp = new DepDescComp();
         input.sort(comp);
-        Assert.assertEquals(expect, input );
+        Assert.assertEquals(expect, input);
 
     }
 
     @Test
     public void whenShitUp() {
         List<String> input = new ArrayList<>(List.of("K2/SK1", "K2"));
-        List<String> expect = new ArrayList<>(List.of("K2","K2/SK1"));
+        List<String> expect = new ArrayList<>(List.of("K2", "K2/SK1"));
         Comparator<String> comp = new DepDescComp();
         input.sort(comp);
-        Assert.assertEquals(expect, input );
+        Assert.assertEquals(expect, input);
     }
 }

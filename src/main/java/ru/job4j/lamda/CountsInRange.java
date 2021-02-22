@@ -6,9 +6,9 @@ import java.util.List;
 
 public class CountsInRange {
 
-    public List<Double> diapason(int str, int end, Function<Double, Double> func ) {
+    public List<Double> diapason(int str, int end, Function<Double, Double> func) {
         List<Double> rsl = new ArrayList<>();
-        for (int i = str; i < end ; i++) {
+        for (int i = str; i < end; i++) {
             rsl.add(func.apply((double) i));
         }
         return rsl;

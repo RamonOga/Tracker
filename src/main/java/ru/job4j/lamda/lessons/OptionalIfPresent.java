@@ -9,7 +9,7 @@ public class OptionalIfPresent {
     }
 
     private static Optional<Integer> max(int[] data) {
-        if(data.length > 0) {
+        if (data.length > 0) {
             int max = data[0];
             for (int i : data) {
                 if (i > max) {

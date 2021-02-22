@@ -7,8 +7,6 @@ public class MemTracker /*implements Store*/ {
     private int ids = 1;
     private int size = items.size();
 
-
-
     public Item add(Item item) {
         item.setId(ids++);
         items.add(item);
