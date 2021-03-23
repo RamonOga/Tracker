@@ -31,4 +31,13 @@ public class Person {
         return address;
     }
 
+    @Override
+    public String toString() {
+        return "Person{"
+                + "name='" + name + '\''
+                + ", surname='" + surname + '\''
+                + ", phone='" + phone + '\''
+                + ", address='" + address + '\''
+                + '}';
+    }
 }

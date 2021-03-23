@@ -5,7 +5,6 @@ public class ValidateInput implements Input {
     private final Input in;
     private final Output out;
 
-
     public ValidateInput(Output out, Input input) {
         this.in = input;
         this.out = out;

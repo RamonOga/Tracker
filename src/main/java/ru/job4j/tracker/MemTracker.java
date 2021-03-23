@@ -2,8 +2,8 @@ package ru.job4j.tracker;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tracker {
-    List<Item> items = new ArrayList<>();
+public class MemTracker /*implements Store*/ {
+    private List<Item> items = new ArrayList<>();
     private int ids = 1;
     private int size = items.size();
 
@@ -41,7 +41,7 @@ public class Tracker {
         boolean rsl = index != -1;
         if (rsl) {
             item.setId(items.get(index).getId());
-            items.set(index,item);
+            items.set(index, item);
         }
         return rsl;
     }

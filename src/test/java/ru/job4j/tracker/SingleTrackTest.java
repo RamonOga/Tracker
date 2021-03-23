@@ -12,32 +12,30 @@ import static org.junit.Assert.assertThat;
 public class SingleTrackTest {
 
     @Test
-    public void SingleInternalThenEqual() {
-        Tracker tracker1 = SingleTrackerInternal.getInstance();
-        Tracker tracker2 = SingleTrackerInternal.getInstance();
-        assertThat(tracker1, is(tracker2));
+    public void singleInternalThenEqual() {
+        MemTracker memTracker1 = SingleTrackerInternal.getInstance();
+        MemTracker memTracker2 = SingleTrackerInternal.getInstance();
+        assertThat(memTracker1, is(memTracker2));
     }
 
     @Test
-    public void SingleEnumThenEqual() {
-        Tracker tracker1 = SingleTrackerEnum.INSTANCE.getTracker();
-        Tracker tracker2 = SingleTrackerEnum.INSTANCE.getTracker();
-        assertThat(tracker1, is(tracker2));
+    public void singleEnumThenEqual() {
+        MemTracker memTracker1 = SingleTrackerEnum.INSTANCE.getTracker();
+        MemTracker memTracker2 = SingleTrackerEnum.INSTANCE.getTracker();
+        assertThat(memTracker1, is(memTracker2));
     }
 
     @Test
-    public void SingleStaticFieldThenEqual() {
-        Tracker tracker1 = SingleTrackerStaticField.getInstance();
-        Tracker tracker2 = SingleTrackerStaticField.getInstance();
-        assertThat(tracker1, is(tracker2));
+    public void singleStaticFieldThenEqual() {
+        MemTracker memTracker1 = SingleTrackerStaticField.getInstance();
+        MemTracker memTracker2 = SingleTrackerStaticField.getInstance();
+        assertThat(memTracker1, is(memTracker2));
     }
 
     @Test
-    public void SingleStaticFinalFieldThenEqual() {
-        Tracker tracker1 = SingleTrackerStaticFinalField.getInstance();
-        Tracker tracker2 = SingleTrackerStaticFinalField.getInstance();
-        assertThat(tracker1, is(tracker2));
+    public void singleStaticFinalFieldThenEqual() {
+        MemTracker memTracker1 = SingleTrackerStaticFinalField.getInstance();
+        MemTracker memTracker2 = SingleTrackerStaticFinalField.getInstance();
+        assertThat(memTracker1, is(memTracker2));
     }
-
-
 }
