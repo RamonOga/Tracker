@@ -2,13 +2,13 @@ package ru.job4j.tracker.actions;
 
 import ru.job4j.tracker.io.Input;
 import ru.job4j.tracker.io.Output;
-import ru.job4j.tracker.Tracker;
+import ru.job4j.tracker.MemTracker;
 import ru.job4j.tracker.UserAction;
 
 public class ExitAction implements UserAction {
     private final Output out;
 
-    public ExitAction(Output out){
+    public ExitAction(Output out) {
         this.out = out;
     }
 
@@ -18,7 +18,7 @@ public class ExitAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, MemTracker tracker) {
         return false;
     }
 }
