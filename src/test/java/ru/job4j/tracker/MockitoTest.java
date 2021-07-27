@@ -1,52 +1,189 @@
 package ru.job4j.tracker;
 
+import org.junit.Assert;
 import org.junit.Test;
-import ru.job4j.tracker.actions.EditAction;
+import ru.job4j.tracker.actions.*;
 import ru.job4j.tracker.io.Input;
 import ru.job4j.tracker.io.Output;
 import ru.job4j.tracker.io.StubOutput;
-
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 
 public class MockitoTest {
     @Test
-    void createActionTest() {
+    public void createActionTest() {
+        Output out = new StubOutput();
+        MemTracker tracker = new MemTracker();
+        String name = "test item";
+
+        CreateAction rep = new CreateAction(out);
+        int id = 1;
+
         Input input = mock(Input.class);
+
+        when(input.askInt(any(String.class))).thenReturn(0);
+        when(input.askStr(any(String.class))).thenReturn(name);
+
+        rep.execute(input, tracker);
+
+        String ln = System.lineSeparator();
+
+        Assert.assertEquals(("=== Create a new request ===="
+                        + ln
+                        + "Requisition with the name "
+                        + name
+                        + "has been created"
+                        + ln),
+                out.toString());
+        Assert.assertEquals(name, tracker.findAll().get(0).getName());
+    }
+
+    @Test
+    public void deleteActionTest() {
+        Output out = new StubOutput();
+        MemTracker tracker = new MemTracker();
+        DeleteAction rep = new DeleteAction(out);
+        Item deleteItem = new Item("Delete item");
+        Item saveItem = new Item("Save item");
+        int id = 1;
+        tracker.add(deleteItem);
+        tracker.add(saveItem);
+
+
+        Input input = mock(Input.class);
+
+        when(input.askInt(any(String.class))).thenReturn(1);
+
+        rep.execute(input, tracker);
+
+        String ln = System.lineSeparator();
+
+        Assert.assertEquals(("Item with ID " + id + " deleted "
+                + ln),
+                out.toString());
+        Assert.assertEquals("Save item", tracker.findAll().get(0).getName());
+    }
+
+    @Test
+    public void editActionTest() {
         Output out = new StubOutput();
         MemTracker tracker = new MemTracker();
         tracker.add(new Item("Replaced item"));
         String replacedName = "New item name";
         EditAction rep = new EditAction(out);
+        int id = 1;
+
+        Input input = mock(Input.class);
+
+        when(input.askInt(any(String.class))).thenReturn(1);
+        when(input.askStr(any(String.class))).thenReturn(replacedName);
+
+        rep.execute(input, tracker);
+
+        String ln = System.lineSeparator();
+
+        Assert.assertEquals(("Request with name: "
+                        + replacedName
+                        + " and ID: "
+                        + id + " replaced"
+                        + ln),
+                out.toString());
+        Assert.assertEquals(replacedName, tracker.findAll().get(0).getName());
     }
 
     @Test
-    void deleteActionTest() {
+    public void exitActionTest() {
+        Output out = new StubOutput();
+        MemTracker tracker = new MemTracker();
+        ExitAction rep = new ExitAction(out);
 
+        Input input = mock(Input.class);
+
+        rep.execute(input, tracker);
+
+        String ln = System.lineSeparator();
+
+        Assert.assertEquals(("Exiting the program"
+                        + ln),
+                out.toString());
     }
 
     @Test
-    void editActionTest() {
+    public void findByIdActionTest() {
+        String name = "Test item";
+        int id = 1;
+        Item item = new Item(name);
+        Output out = new StubOutput();
+        MemTracker tracker = new MemTracker();
+        FindByIdAction rep = new FindByIdAction(out);
+        tracker.add(item);
 
+
+        Input input = mock(Input.class);
+
+        //when(input.askInt(any(String.class))).thenReturn(1);
+        when(input.askInt(any(String.class))).thenReturn(id);
+
+        rep.execute(input, tracker);
+
+        String ln = System.lineSeparator();
+
+        Assert.assertEquals(item.toString() + ln,
+                out.toString());
+        Assert.assertEquals(name, tracker.findAll().get(0).getName());
     }
 
     @Test
-    void exitActionTest() {
+    public void findByNameActionTest() {
+        String name = "Test item";
+        Item item = new Item(name);
+        Output out = new StubOutput();
+        MemTracker tracker = new MemTracker();
+        FindByNameAction rep = new FindByNameAction(out);
+        tracker.add(item);
 
+
+        Input input = mock(Input.class);
+
+        when(input.askStr(any(String.class))).thenReturn(name);
+
+        rep.execute(input, tracker);
+
+        String ln = System.lineSeparator();
+
+        Assert.assertEquals(item.toString() + ln,
+                out.toString());
+        Assert.assertEquals(name, tracker.findAll().get(0).getName());
     }
 
     @Test
-    void findByIdActionTest() {
+    public void showAllActionTest() {
+        Output out = new StubOutput();
+        MemTracker tracker = new MemTracker();
+        ShowAllAction rep = new ShowAllAction(out);
+        Item firstItem = new Item("First item");
+        Item secondItem = new Item("Second item");
+        tracker.add(firstItem);
+        tracker.add(secondItem);
 
-    }
 
-    @Test
-    void findByNameActionTest() {
+        Input input = mock(Input.class);
 
-    }
+        //when(input.askInt(any(String.class))).thenReturn(1);
 
-    @Test
-    void showAllActionTest() {
+        rep.execute(input, tracker);
 
+        String ln = System.lineSeparator();
+
+        Assert.assertEquals(("==== Show all items ====" + ln
+                        + firstItem.toString() + ln
+                        + secondItem.toString() + ln
+                ),
+                out.toString());
+        Assert.assertEquals("First item", tracker.findAll().get(0).getName());
+        Assert.assertEquals("Second item", tracker.findAll().get(1).getName());
     }
 
 }

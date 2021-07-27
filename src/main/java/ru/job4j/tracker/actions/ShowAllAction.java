@@ -24,7 +24,7 @@ public class ShowAllAction implements UserAction {
     @Override
     public boolean execute(Input input, MemTracker memTracker) {
         List<Item> arrayItems;
-        out.println("=== Show all items ====");
+        out.println("==== Show all items ====");
         arrayItems = memTracker.findAll();
         for (Item value : arrayItems) {
             out.println(value);

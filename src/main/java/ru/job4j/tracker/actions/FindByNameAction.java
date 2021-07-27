@@ -25,7 +25,7 @@ public class FindByNameAction implements UserAction {
         List<Item> arrayItems = memTracker.findByName(inputS);
         if (arrayItems.size() > 0) {
             for (Item arrayItem : arrayItems) {
-                System.out.println(arrayItem);
+                out.println(arrayItem);
             }
         } else {
             out.println("Request with " + inputS + " not found");

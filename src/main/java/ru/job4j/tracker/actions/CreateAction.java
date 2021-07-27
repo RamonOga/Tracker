@@ -22,6 +22,7 @@ public class CreateAction implements UserAction {
         String name = input.askStr("Enter name: ");
         Item item = new Item(name);
         memTracker.add(item);
+        out.println("Requisition with the name " + name + "has been created");
         return true;
     }
 }

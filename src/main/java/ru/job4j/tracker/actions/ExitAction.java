@@ -19,6 +19,7 @@ public class ExitAction implements UserAction {
 
     @Override
     public boolean execute(Input input, MemTracker tracker) {
+        out.println("Exiting the program");
         return false;
     }
 }
