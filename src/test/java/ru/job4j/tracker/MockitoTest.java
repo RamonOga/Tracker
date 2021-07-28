@@ -10,7 +10,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-
 public class MockitoTest {
     @Test
     public void createActionTest() {
@@ -19,11 +18,9 @@ public class MockitoTest {
         String name = "test item";
 
         CreateAction rep = new CreateAction(out);
-        int id = 1;
 
         Input input = mock(Input.class);
 
-        when(input.askInt(any(String.class))).thenReturn(0);
         when(input.askStr(any(String.class))).thenReturn(name);
 
         rep.execute(input, tracker);
@@ -34,7 +31,7 @@ public class MockitoTest {
                         + ln
                         + "Requisition with the name "
                         + name
-                        + "has been created"
+                        + " has been created"
                         + ln),
                 out.toString());
         Assert.assertEquals(name, tracker.findAll().get(0).getName());
@@ -47,20 +44,18 @@ public class MockitoTest {
         DeleteAction rep = new DeleteAction(out);
         Item deleteItem = new Item("Delete item");
         Item saveItem = new Item("Save item");
-        int id = 1;
         tracker.add(deleteItem);
         tracker.add(saveItem);
 
-
         Input input = mock(Input.class);
 
-        when(input.askInt(any(String.class))).thenReturn(1);
+        when(input.askInt(any(String.class))).thenReturn(deleteItem.getId());
 
         rep.execute(input, tracker);
 
         String ln = System.lineSeparator();
 
-        Assert.assertEquals(("Item with ID " + id + " deleted "
+        Assert.assertEquals(("Item with ID " + deleteItem.getId() + " deleted "
                 + ln),
                 out.toString());
         Assert.assertEquals("Save item", tracker.findAll().get(0).getName());
@@ -70,14 +65,14 @@ public class MockitoTest {
     public void editActionTest() {
         Output out = new StubOutput();
         MemTracker tracker = new MemTracker();
-        tracker.add(new Item("Replaced item"));
+        Item item = new Item("Replaced item");
+        tracker.add(item);
         String replacedName = "New item name";
         EditAction rep = new EditAction(out);
-        int id = 1;
 
         Input input = mock(Input.class);
 
-        when(input.askInt(any(String.class))).thenReturn(1);
+        when(input.askInt(any(String.class))).thenReturn(item.getId());
         when(input.askStr(any(String.class))).thenReturn(replacedName);
 
         rep.execute(input, tracker);
@@ -87,7 +82,7 @@ public class MockitoTest {
         Assert.assertEquals(("Request with name: "
                         + replacedName
                         + " and ID: "
-                        + id + " replaced"
+                        + item.getId() + " replaced"
                         + ln),
                 out.toString());
         Assert.assertEquals(replacedName, tracker.findAll().get(0).getName());
@@ -113,18 +108,15 @@ public class MockitoTest {
     @Test
     public void findByIdActionTest() {
         String name = "Test item";
-        int id = 1;
         Item item = new Item(name);
         Output out = new StubOutput();
         MemTracker tracker = new MemTracker();
         FindByIdAction rep = new FindByIdAction(out);
         tracker.add(item);
 
-
         Input input = mock(Input.class);
 
-        //when(input.askInt(any(String.class))).thenReturn(1);
-        when(input.askInt(any(String.class))).thenReturn(id);
+        when(input.askInt(any(String.class))).thenReturn(item.getId());
 
         rep.execute(input, tracker);
 
@@ -137,17 +129,15 @@ public class MockitoTest {
 
     @Test
     public void findByNameActionTest() {
-        String name = "Test item";
-        Item item = new Item(name);
+        Item item = new Item("Test item");
         Output out = new StubOutput();
         MemTracker tracker = new MemTracker();
         FindByNameAction rep = new FindByNameAction(out);
         tracker.add(item);
 
-
         Input input = mock(Input.class);
 
-        when(input.askStr(any(String.class))).thenReturn(name);
+        when(input.askStr(any(String.class))).thenReturn(item.getName());
 
         rep.execute(input, tracker);
 
@@ -155,7 +145,7 @@ public class MockitoTest {
 
         Assert.assertEquals(item.toString() + ln,
                 out.toString());
-        Assert.assertEquals(name, tracker.findAll().get(0).getName());
+        Assert.assertEquals(item.getName(), tracker.findAll().get(0).getName());
     }
 
     @Test
@@ -168,10 +158,7 @@ public class MockitoTest {
         tracker.add(firstItem);
         tracker.add(secondItem);
 
-
         Input input = mock(Input.class);
-
-        //when(input.askInt(any(String.class))).thenReturn(1);
 
         rep.execute(input, tracker);
 

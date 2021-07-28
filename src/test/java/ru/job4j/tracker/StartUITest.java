@@ -65,13 +65,15 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"0"}
         );
+        String ln = System.lineSeparator();
         MemTracker memTracker = new MemTracker();
         ArrayList<UserAction> actions = new ArrayList<>();
         actions.add(new ExitAction(out));
         new StartUI(out).init(in, memTracker, actions);
         assertThat(out.toString(), is(
-                "Menu." + System.lineSeparator()
-                        + "0. Exit." + System.lineSeparator()
+                "Menu." + ln
+                        + "0. Exit." + ln
+                        + "Exiting the program" + ln
         ));
     }
 
@@ -81,19 +83,22 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"0", "java", "1"}
         );
+        String ln = System.lineSeparator();
         MemTracker memTracker = new MemTracker();
         ArrayList<UserAction> actions = new ArrayList<>();
         actions.add(new CreateAction(out));
         actions.add(new ExitAction(out));
         new StartUI(out).init(in, memTracker, actions);
         assertThat(out.toString(), is(
-                "Menu." + System.lineSeparator()
-                        + "0. Create a new request" + System.lineSeparator()
-                        + "1. Exit." + System.lineSeparator()
-                        + "=== Create a new request ====" + System.lineSeparator()
-                        + "Menu." + System.lineSeparator()
-                        + "0. Create a new request" + System.lineSeparator()
-                        + "1. Exit." + System.lineSeparator()
+                "Menu." + ln
+                        + "0. Create a new request" + ln
+                        + "1. Exit." + ln
+                        + "=== Create a new request ====" + ln
+                        + "Requisition with the name java has been created" + ln
+                        + "Menu." + ln
+                        + "0. Create a new request" + ln
+                        + "1. Exit." + ln
+                        + "Exiting the program" + ln
 
         ));
     }
@@ -102,22 +107,26 @@ public class StartUITest {
     public void whenFindByNameAction() {
         Output out = new StubOutput();
         Input in = new StubInput(
-                new String[] {"0", "java", "1", "java", "2"}
+                new String[] {"1", "java", "2"}
         );
+        String ln = System.lineSeparator();
+
         MemTracker memTracker = new MemTracker();
+        Item item = new Item("java");
+        memTracker.add(item);
         ArrayList<UserAction> actions = new ArrayList<>();
         actions.add(new CreateAction(out));
         actions.add(new FindByNameAction(out));
         actions.add(new ExitAction(out));
-        String menu = "Menu." + System.lineSeparator()
-                + "0. Create a new request" + System.lineSeparator()
-                + "1. Find by name." + System.lineSeparator()
-                + "2. Exit." + System.lineSeparator();
+        String menu = "Menu." + ln
+                + "0. Create a new request" + ln
+                + "1. Find by name." + ln
+                + "2. Exit." + ln;
         new StartUI(out).init(in, memTracker, actions);
         assertThat(out.toString(), is(
-                 menu + "=== Create a new request ===="
-                         + System.lineSeparator() + menu
-                         + menu
+                 menu + item.toString()
+                         + ln + menu
+                         + "Exiting the program" + ln
 
         ));
     }
@@ -128,20 +137,22 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"0", "java", "1", "33", "2"}
         );
+        String ln = System.lineSeparator();
         MemTracker memTracker = new MemTracker();
         ArrayList<UserAction> actions = new ArrayList<>();
         actions.add(new CreateAction(out));
         actions.add(new FindByIdAction(out));
         actions.add(new ExitAction(out));
-        String menu = "Menu." + System.lineSeparator()
-                + "0. Create a new request" + System.lineSeparator()
-                + "1. Find by id." + System.lineSeparator()
-                + "2. Exit." + System.lineSeparator();
+        String menu = "Menu." + ln
+                + "0. Create a new request" + ln
+                + "1. Find by id." + ln
+                + "2. Exit." + ln;
         new StartUI(out).init(in, memTracker, actions);
         assertThat(out.toString(), is(
-                menu + "=== Create a new request ====" + System.lineSeparator()
-                        + menu + "Request with 33 number not found." + System.lineSeparator()
-                        + menu
+                menu + "=== Create a new request ====" + ln
+                        + "Requisition with the name java has been created" + ln
+                        + menu + "Request with 33 number not found." + ln
+                        + menu + "Exiting the program" + ln
         ));
 
     }
@@ -152,6 +163,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"123", "0"}
         );
+        String ln = System.lineSeparator();
         MemTracker memTracker = new MemTracker();
         ArrayList<UserAction> actions = new ArrayList<>();
         actions.add(new ExitAction(out));
@@ -163,7 +175,7 @@ public class StartUITest {
                                 + "Wrong input, you can select: 0 .. 0%n"
                                 + "Menu.%n"
                                 + "0. Exit.%n"
-                )
+                ) + "Exiting the program" + ln
         ));
     }
 }
