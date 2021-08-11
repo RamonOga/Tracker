@@ -10,8 +10,11 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name="name")
     private String name;
+    @Column(name="created")
     private Timestamp created = new Timestamp(System.currentTimeMillis());
+    @Column(name="description")
     private String description;
 
     public Item() {
@@ -54,6 +57,18 @@ public class Item {
 
     public Timestamp getCreated() {
         return this.created;
+    }
+
+    public void setCreated(Timestamp created) {
+        this.created = created;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
