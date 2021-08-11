@@ -1,10 +1,9 @@
 package ru.job4j.tracker.actions;
 
-import ru.job4j.tracker.Item;
-import ru.job4j.tracker.MemTracker;
-import ru.job4j.tracker.UserAction;
+import ru.job4j.tracker.model.Item;
 import ru.job4j.tracker.io.Input;
 import ru.job4j.tracker.io.Output;
+import ru.job4j.tracker.store.Store;
 
 import java.util.List;
 
@@ -22,11 +21,11 @@ public class ShowAllAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, MemTracker memTracker) {
-        List<Item> arrayItems;
+    public boolean execute(Input input, Store tracker) {
+        List<Item> items;
         out.println("==== Show all items ====");
-        arrayItems = memTracker.findAll();
-        for (Item value : arrayItems) {
+        items = tracker.findAll();
+        for (Item value : items) {
             out.println(value);
         }
         return true;

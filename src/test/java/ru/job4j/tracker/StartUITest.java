@@ -6,6 +6,8 @@ import ru.job4j.tracker.io.Input;
 import ru.job4j.tracker.io.Output;
 import ru.job4j.tracker.io.StubInput;
 import ru.job4j.tracker.io.StubOutput;
+import ru.job4j.tracker.model.Item;
+import ru.job4j.tracker.store.MemTracker;
 
 import java.util.ArrayList;
 import static org.hamcrest.Matchers.is;
@@ -41,7 +43,8 @@ public class StartUITest {
         actions.add(new EditAction(out));
         actions.add(new ExitAction(out));
         new StartUI(out).init(in, memTracker, actions);
-        assertThat(memTracker.findById(item.getId()).getName(), is("New item name"));
+        assertThat(memTracker.findById(String.valueOf(item.getId())).getName(),
+                is("New item name"));
     }
 
     @Test
@@ -56,7 +59,7 @@ public class StartUITest {
         actions.add(new DeleteAction(out));
         actions.add(new ExitAction(out));
         new StartUI(out).init(in, memTracker, actions);
-        assertThat(memTracker.findById(item.getId()), is(nullValue()));
+        assertThat(memTracker.findById(String.valueOf(item.getId())), is(nullValue()));
     }
 
     @Test

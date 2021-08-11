@@ -1,6 +1,6 @@
 package ru.job4j.stream.lessons;
 
-import ru.job4j.tracker.User;
+import ru.job4j.tracker.model.User;
 
 import java.util.*;
 import java.util.function.*;

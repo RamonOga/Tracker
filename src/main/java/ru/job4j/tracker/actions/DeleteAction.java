@@ -1,9 +1,8 @@
 package ru.job4j.tracker.actions;
 
-import ru.job4j.tracker.MemTracker;
 import ru.job4j.tracker.io.Input;
 import ru.job4j.tracker.io.Output;
-import ru.job4j.tracker.UserAction;
+import ru.job4j.tracker.store.Store;
 
 public class DeleteAction implements UserAction {
     private final Output out;
@@ -18,10 +17,10 @@ public class DeleteAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, MemTracker memTracker) {
-        int inputI = input.askInt("Enter ID for delete: ");
-        if (memTracker.delete(inputI)) {
-            out.println("Item with ID " + inputI + " deleted ");
+    public boolean execute(Input input, Store tracker) {
+        String id = input.askStr("Enter ID for delete: ");
+        if (tracker.delete(id)) {
+            out.println("Item with ID " + id + " deleted ");
         } else {
             out.println("Something went wrong..");
         }

@@ -1,16 +1,10 @@
 package ru.job4j.stream;
 
-import ru.job4j.tracker.User;
+import ru.job4j.tracker.model.User;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class StreamTest {
     private List<String> listStr = List.of("java", "js", "C++", "C#", "go", "kotlin");

@@ -1,6 +1,6 @@
-package ru.job4j.tracker.sql;
+package ru.job4j.tracker.store;
 
-import ru.job4j.tracker.Item;
+import ru.job4j.tracker.model.Item;
 
 import java.io.InputStream;
 import java.sql.*;
@@ -16,6 +16,7 @@ public class SqlTracker implements Store {
     }
 
     public SqlTracker() {
+        init();
     }
 
     public void init() {

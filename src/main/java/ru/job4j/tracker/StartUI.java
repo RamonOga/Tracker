@@ -2,6 +2,9 @@ package ru.job4j.tracker;
 
 import ru.job4j.tracker.actions.*;
 import ru.job4j.tracker.io.*;
+import ru.job4j.tracker.store.MemTracker;
+import ru.job4j.tracker.store.SqlTracker;
+import ru.job4j.tracker.store.Store;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,17 +16,17 @@ public class StartUI {
         this.out = out;
     }
 
-    public void init(Input input, MemTracker memTracker, List<UserAction> actions) {
+    public void init(Input input, Store tracker, List<UserAction> actions) {
         boolean run = true;
         while (run) {
-            this.showMenu(actions);
+            showMenu(actions);
             int select = input.askInt("Select: ");
             if (select < 0 || select > actions.size() - 1) {
                 out.println("Wrong input, you can select: 0 .. " + (actions.size() - 1));
                 continue;
             }
             UserAction action = actions.get(select);
-            run = action.execute(input, memTracker);
+            run = action.execute(input, tracker);
         }
     }
 
@@ -38,7 +41,7 @@ public class StartUI {
     public static void main(String[] args) {
         Output output = new ConsoleOutput();
         Input input = new ValidateInput(output, new ConsoleInput(output));
-        MemTracker memTracker = new MemTracker();
+        Store memTracker = new SqlTracker();
         List<UserAction> actions = new ArrayList<>();
         actions.add(new CreateAction(output));
         actions.add(new ShowAllAction(output));

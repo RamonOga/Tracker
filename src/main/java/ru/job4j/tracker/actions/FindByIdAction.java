@@ -1,8 +1,9 @@
 package ru.job4j.tracker.actions;
 
-import ru.job4j.tracker.*;
 import ru.job4j.tracker.io.Input;
 import ru.job4j.tracker.io.Output;
+import ru.job4j.tracker.model.Item;
+import ru.job4j.tracker.store.Store;
 
 public class FindByIdAction implements UserAction {
     private final Output out;
@@ -17,13 +18,13 @@ public class FindByIdAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, MemTracker memTracker) {
-        int inputI = input.askInt("Enter ID for search: ");
-        Item rsl = memTracker.findById(inputI);
+    public boolean execute(Input input, Store tracker) {
+        String id = input.askStr("Enter ID for search: ");
+        Item rsl = tracker.findById(id);
         if (rsl != null) {
             out.println(rsl);
         } else {
-            out.println("Request with " + inputI + " number not found.");
+            out.println("Request with " + id + " number not found.");
         }
         return true;
     }

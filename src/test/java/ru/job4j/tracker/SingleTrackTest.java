@@ -5,6 +5,7 @@ import ru.job4j.tracker.singleton.SingleTrackerEnum;
 import ru.job4j.tracker.singleton.SingleTrackerInternal;
 import ru.job4j.tracker.singleton.SingleTrackerStaticField;
 import ru.job4j.tracker.singleton.SingleTrackerStaticFinalField;
+import ru.job4j.tracker.store.MemTracker;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;

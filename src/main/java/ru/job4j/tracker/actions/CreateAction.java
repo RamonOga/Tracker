@@ -1,8 +1,9 @@
 package ru.job4j.tracker.actions;
 
-import ru.job4j.tracker.*;
 import ru.job4j.tracker.io.Input;
 import ru.job4j.tracker.io.Output;
+import ru.job4j.tracker.model.Item;
+import ru.job4j.tracker.store.Store;
 
 public class CreateAction implements UserAction {
     private final Output out;
@@ -17,11 +18,11 @@ public class CreateAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, MemTracker memTracker) {
+    public boolean execute(Input input, Store tracker) {
         out.println("=== Create a new request ====");
         String name = input.askStr("Enter name: ");
         Item item = new Item(name);
-        memTracker.add(item);
+        tracker.add(item);
         out.println("Requisition with the name " + name + " has been created");
         return true;
     }
