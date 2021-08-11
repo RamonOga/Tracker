@@ -50,6 +50,7 @@ public class HbmTracker implements Store {
 
     @Override
     public boolean replace(String id, Item item) {
+        boolean rsl = false;
         try {
             Item updateItem = findById(id);
             updateItem.setName(item.getName());
@@ -59,22 +60,23 @@ public class HbmTracker implements Store {
             session.beginTransaction();
             session.update(updateItem);
             session.getTransaction().commit();
-            return true;
+            rsl = true;
         } catch (Exception e) {
             if (session.getTransaction() != null) {
                 session.getTransaction().rollback();
             }
             LOG.error(e.getMessage());
-            return false;
         } finally {
             if (session != null) {
                 session.close();
             }
+            return rsl;
         }
     }
 
     @Override
     public boolean delete(String id) {
+        boolean rsl = false;
         try {
             session = sf.openSession();
             session.beginTransaction();
@@ -82,18 +84,17 @@ public class HbmTracker implements Store {
             item.setId(Integer.parseInt(id));
             session.delete(item);
             session.getTransaction().commit();
-            return true;
+            rsl = true;
         } catch (Exception e) {
             if (session.getTransaction() != null) {
                 session.getTransaction().rollback();
             }
             LOG.error(e.getMessage());
-
-            return false;
         } finally {
             if (session != null) {
                 session.close();
             }
+            return rsl;
         }
     }
 
@@ -105,7 +106,6 @@ public class HbmTracker implements Store {
             session.beginTransaction();
             itemsList = session.createQuery("from ru.job4j.tracker.model.Item", Item.class).list();
             session.getTransaction().commit();
-
         } catch (Exception e) {
             if (session.getTransaction() != null) {
                 session.getTransaction().rollback();
