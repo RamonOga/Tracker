@@ -77,6 +77,7 @@ public class Item {
                 + "id=" + id
                 + ", name='" + name + '\''
                 + ", created=" + created
+                + ", description=" + description
                 + '}';
 
     }
