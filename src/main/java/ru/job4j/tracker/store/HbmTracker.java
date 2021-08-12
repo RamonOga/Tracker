@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -19,7 +20,6 @@ public class HbmTracker implements Store {
             .configure().build();
     private final SessionFactory sf = new MetadataSources(registry)
             .buildMetadata().buildSessionFactory();
-    private static Session session;
     private static final Logger LOG = LogManager.getLogger();
 
     @Override
@@ -29,92 +29,76 @@ public class HbmTracker implements Store {
 
     @Override
     public Item add(Item item) {
-       try {
-           session = sf.openSession();
-           session.beginTransaction();
-           session.save(item);
-           session.getTransaction().commit();
-       } catch (Exception e) {
-           if (session.getTransaction() != null) {
-               session.getTransaction().rollback();
-           }
+        Transaction transaction = null;
+        try(Session session = sf.openSession()) {
+            transaction = session.beginTransaction();
+            session.save(item);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
             LOG.error(e.getMessage());
-       } finally {
-           if (session != null) {
-               session.close();
-           }
-       }
-
-       return item;
+        }
+        return item;
     }
+
 
     @Override
     public boolean replace(String id, Item item) {
-        boolean rsl = false;
-        try {
-            Item updateItem = findById(id);
-            updateItem.setName(item.getName());
-            updateItem.setDescription(item.getDescription());
-            updateItem.setCreated(item.getCreated());
-            session = sf.openSession();
-            session.beginTransaction();
+        Transaction transaction = null;
+        try(Session session = sf.openSession()) {
+            transaction = session.beginTransaction();
+            Item updateItem = session.get(Item.class, Integer.valueOf(id));;
+            if (updateItem != null) {
+                updateItem.setName(item.getName());
+                updateItem.setDescription(item.getDescription());
+                updateItem.setCreated(item.getCreated());
+            }
             session.update(updateItem);
-            session.getTransaction().commit();
-            rsl = true;
+            transaction.commit();
         } catch (Exception e) {
-            if (session.getTransaction() != null) {
-                session.getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
             }
             LOG.error(e.getMessage());
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-            return rsl;
         }
+        return true;
     }
 
     @Override
     public boolean delete(String id) {
         boolean rsl = false;
-        try {
-            session = sf.openSession();
-            session.beginTransaction();
+        Transaction transaction = null;
+        try(Session session = sf.openSession()) {
+            transaction = session.beginTransaction();
             Item item = new Item("delete");
             item.setId(Integer.parseInt(id));
             session.delete(item);
-            session.getTransaction().commit();
+            transaction.commit();
             rsl = true;
         } catch (Exception e) {
-            if (session.getTransaction() != null) {
-                session.getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
             }
             LOG.error(e.getMessage());
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-            return rsl;
         }
+        return rsl;
     }
 
     @Override
     public List<Item> findAll() {
         List<Item> itemsList = null;
-        try {
-            session = sf.openSession();
-            session.beginTransaction();
+        Transaction transaction = null;
+        try(Session session = sf.openSession()) {
+            transaction = session.beginTransaction();
             itemsList = session.createQuery("from ru.job4j.tracker.model.Item", Item.class).list();
             session.getTransaction().commit();
         } catch (Exception e) {
-            if (session.getTransaction() != null) {
-                session.getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
             }
             LOG.error(e.getMessage());
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
         return itemsList;
     }
@@ -122,23 +106,19 @@ public class HbmTracker implements Store {
     @Override
     public List<Item> findByName(String key) {
         List<Item> list = null;
-        try {
-            session = sf.openSession();
-            session.beginTransaction();
+        Transaction transaction = null;
+        try(Session session = sf.openSession())  {
+            transaction = session.beginTransaction();
             Query query = session.createQuery("from ru.job4j.tracker.model.Item where name = :paramName");
             query.setParameter("paramName", key).list();
             list = query.list();
-            session.getTransaction().commit();
+            transaction.commit();
 
         } catch (Exception e) {
-            if (session.getTransaction() != null) {
-                session.getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
             }
             LOG.error(e.getMessage());
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
         return list;
     }
@@ -146,20 +126,16 @@ public class HbmTracker implements Store {
     @Override
     public Item findById(String id) {
         Item item = null;
-        try {
-            session = sf.openSession();
-            session.beginTransaction();
+        Transaction transaction = null;
+        try(Session session = sf.openSession())  {
+            transaction = session.beginTransaction();
             item = session.get(Item.class, Integer.valueOf(id));
             session.getTransaction().commit();
         } catch (Exception e) {
-            if (session.getTransaction() != null) {
-                session.getTransaction().rollback();
+            if (transaction != null) {
+                transaction.rollback();
             }
             LOG.error(e.getMessage());
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
         return item;
     }
