@@ -11,7 +11,12 @@ import java.sql.Timestamp;
 public class Runner {
     public static void main(String[] args) {
 
+        //add();
+        //replace();
+        //delete();
+        //findAll();
         findById();
+        findByName();
 
     }
 
@@ -25,15 +30,15 @@ public class Runner {
      */
     public static void replace() {
         HbmTracker tracker = new HbmTracker();
-        System.out.println(tracker.replace("6",  new Item(0, "Replaced Name1", "Replaced Desc1")) + "<======================================================");
+        System.out.println(tracker.replace("2",  new Item(0, "Replaced Name1", "Replaced Desc1")) + "<======================================================");
         System.out.println(tracker.replace("66",  new Item(0, "Replaced Name2", "Replaced Desc2")) + "<======================================================");
     }
 
     public static void delete() {
         HbmTracker tracker = new HbmTracker();
         int id = tracker.add(new Item(0, "Deleted Name1", "Deleted Desc1")).getId();
-        tracker.delete(String.valueOf(id));
-        tracker.delete("55");
+        System.out.println(tracker.delete(String.valueOf(id)) + "<=============================================================");
+        System.out.println(tracker.delete("55") + "<=============================================================");
     }
 
     public static void findAll() {
@@ -43,8 +48,8 @@ public class Runner {
 
     public static void findByName() {
         HbmTracker tracker = new HbmTracker();
-        tracker.add(new Item(0, "FindByName1", "desc1"));
-        tracker.add(new Item(0, "FindByName1", "desc2"));
+        /*tracker.add(new Item(0, "FindByName1", "desc1"));
+        tracker.add(new Item(0, "FindByName1", "desc2"));*/
         System.out.println(tracker.findByName("FindByName1"));
         System.out.println(tracker.findByName("ebobo"));
     }

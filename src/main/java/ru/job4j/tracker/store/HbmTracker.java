@@ -49,19 +49,15 @@ public class HbmTracker implements Store {
         Transaction transaction = null;
         try(Session session = sf.openSession()) {
             transaction = session.beginTransaction();
-            Item updateItem = session.get(Item.class, Integer.valueOf(id));;
-            if (updateItem != null) {
-                updateItem.setName(item.getName());
-                updateItem.setDescription(item.getDescription());
-                updateItem.setCreated(item.getCreated());
-            }
-            session.update(updateItem);
+            item.setId(Integer.parseInt(id));
+            session.update(item);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             LOG.error(e.getMessage());
+            return false;
         }
         return true;
     }
@@ -82,6 +78,7 @@ public class HbmTracker implements Store {
                 transaction.rollback();
             }
             LOG.error(e.getMessage());
+            return false;
         }
         return rsl;
     }
