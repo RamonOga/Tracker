@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import ru.job4j.tracker.actions.*;
 import ru.job4j.tracker.io.*;
+import ru.job4j.tracker.store.HbmTracker;
 import ru.job4j.tracker.store.MemTracker;
 import ru.job4j.tracker.store.SqlTracker;
 import ru.job4j.tracker.store.Store;
@@ -41,7 +42,7 @@ public class StartUI {
     public static void main(String[] args) {
         Output output = new ConsoleOutput();
         Input input = new ValidateInput(output, new ConsoleInput(output));
-        Store memTracker = new SqlTracker();
+        Store tracker = new HbmTracker();
         List<UserAction> actions = new ArrayList<>();
         actions.add(new CreateAction(output));
         actions.add(new ShowAllAction(output));
@@ -51,6 +52,6 @@ public class StartUI {
         actions.add(new FindByNameAction(output));
         actions.add(new ExitAction(output));
 
-        new StartUI(output).init(input, memTracker, actions);
+        new StartUI(output).init(input, tracker, actions);
     }
 }
