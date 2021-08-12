@@ -15,12 +15,11 @@ import java.util.List;
 
 public class HbmTracker implements Store {
 
-
     private final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
             .configure().build();
     private final SessionFactory sf = new MetadataSources(registry)
             .buildMetadata().buildSessionFactory();
-    private static final Logger LOG = LogManager.getLogger();
+    private final static Logger LOG = LogManager.getLogger();
 
     @Override
     public void init() {
@@ -30,7 +29,7 @@ public class HbmTracker implements Store {
     @Override
     public Item add(Item item) {
         Transaction transaction = null;
-        try(Session session = sf.openSession()) {
+        try (Session session = sf.openSession()) {
             transaction = session.beginTransaction();
             session.save(item);
             transaction.commit();
@@ -43,11 +42,10 @@ public class HbmTracker implements Store {
         return item;
     }
 
-
     @Override
     public boolean replace(String id, Item item) {
         Transaction transaction = null;
-        try(Session session = sf.openSession()) {
+        try (Session session = sf.openSession()) {
             transaction = session.beginTransaction();
             item.setId(Integer.parseInt(id));
             session.update(item);
@@ -66,7 +64,7 @@ public class HbmTracker implements Store {
     public boolean delete(String id) {
         boolean rsl = false;
         Transaction transaction = null;
-        try(Session session = sf.openSession()) {
+        try (Session session = sf.openSession()) {
             transaction = session.beginTransaction();
             Item item = new Item("delete");
             item.setId(Integer.parseInt(id));
@@ -87,7 +85,7 @@ public class HbmTracker implements Store {
     public List<Item> findAll() {
         List<Item> itemsList = null;
         Transaction transaction = null;
-        try(Session session = sf.openSession()) {
+        try (Session session = sf.openSession()) {
             transaction = session.beginTransaction();
             itemsList = session.createQuery("from ru.job4j.tracker.model.Item", Item.class).list();
             session.getTransaction().commit();
@@ -99,14 +97,16 @@ public class HbmTracker implements Store {
         }
         return itemsList;
     }
-    //!!
+
     @Override
     public List<Item> findByName(String key) {
         List<Item> list = null;
         Transaction transaction = null;
-        try(Session session = sf.openSession())  {
+        try (Session session = sf.openSession())  {
             transaction = session.beginTransaction();
-            Query query = session.createQuery("from ru.job4j.tracker.model.Item where name = :paramName");
+            Query query = session.createQuery(
+                    "from ru.job4j.tracker.model.Item where name = :paramName"
+            );
             query.setParameter("paramName", key).list();
             list = query.list();
             transaction.commit();
@@ -124,7 +124,7 @@ public class HbmTracker implements Store {
     public Item findById(String id) {
         Item item = null;
         Transaction transaction = null;
-        try(Session session = sf.openSession())  {
+        try (Session session = sf.openSession())  {
             transaction = session.beginTransaction();
             item = session.get(Item.class, Integer.valueOf(id));
             session.getTransaction().commit();

@@ -10,11 +10,11 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
-    @Column(name="created")
+    @Column(name = "created")
     private Timestamp created = new Timestamp(System.currentTimeMillis());
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
 
     public Item() {

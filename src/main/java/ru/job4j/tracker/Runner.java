@@ -30,15 +30,15 @@ public class Runner {
      */
     public static void replace() {
         HbmTracker tracker = new HbmTracker();
-        System.out.println(tracker.replace("2",  new Item(0, "Replaced Name1", "Replaced Desc1")) + "<======================================================");
-        System.out.println(tracker.replace("66",  new Item(0, "Replaced Name2", "Replaced Desc2")) + "<======================================================");
+        tracker.replace("2",  new Item(0, "Replaced Name1", "Replaced Desc1"));
+        tracker.replace("66",  new Item(0, "Replaced Name2", "Replaced Desc2"));
     }
 
     public static void delete() {
         HbmTracker tracker = new HbmTracker();
         int id = tracker.add(new Item(0, "Deleted Name1", "Deleted Desc1")).getId();
-        System.out.println(tracker.delete(String.valueOf(id)) + "<=============================================================");
-        System.out.println(tracker.delete("55") + "<=============================================================");
+        tracker.delete(String.valueOf(id));
+        tracker.delete("55");
     }
 
     public static void findAll() {

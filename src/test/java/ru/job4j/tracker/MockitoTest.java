@@ -52,7 +52,7 @@ public class MockitoTest {
 
         Input input = mock(Input.class);
 
-        when(input.askInt(any(String.class))).thenReturn(deleteItem.getId());
+        when(input.askStr(any(String.class))).thenReturn(String.valueOf(deleteItem.getId()));
 
         rep.execute(input, tracker);
 
@@ -75,8 +75,9 @@ public class MockitoTest {
 
         Input input = mock(Input.class);
 
-        when(input.askInt(any(String.class))).thenReturn(item.getId());
-        when(input.askStr(any(String.class))).thenReturn(replacedName);
+        when(input.askStr(any(String.class)))
+                .thenReturn(String.valueOf(item.getId()))
+                .thenReturn(replacedName);
 
         rep.execute(input, tracker);
 
@@ -119,7 +120,7 @@ public class MockitoTest {
 
         Input input = mock(Input.class);
 
-        when(input.askInt(any(String.class))).thenReturn(item.getId());
+        when(input.askStr(any(String.class))).thenReturn(String.valueOf(item.getId()));
 
         rep.execute(input, tracker);
 
