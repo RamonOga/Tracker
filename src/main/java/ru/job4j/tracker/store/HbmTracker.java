@@ -11,6 +11,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 import ru.job4j.tracker.model.Item;
 
+import java.security.spec.ECField;
 import java.util.List;
 
 public class HbmTracker implements Store {
@@ -38,26 +39,29 @@ public class HbmTracker implements Store {
                 transaction.rollback();
             }
             LOG.error(e.getMessage());
+            throw e;
         }
         return item;
     }
 
     @Override
-    public boolean replace(String id, Item item) {
+    public boolean replace(String id, Item item) throws Exception {
+        boolean rsl = false;
         Transaction transaction = null;
         try (Session session = sf.openSession()) {
             transaction = session.beginTransaction();
             item.setId(Integer.parseInt(id));
             session.update(item);
             transaction.commit();
+            rsl = true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             LOG.error(e.getMessage());
-            return false;
+            throw e;
         }
-        return true;
+        return rsl;
     }
 
     @Override
@@ -76,7 +80,7 @@ public class HbmTracker implements Store {
                 transaction.rollback();
             }
             LOG.error(e.getMessage());
-            return false;
+            throw e;
         }
         return rsl;
     }
@@ -94,6 +98,7 @@ public class HbmTracker implements Store {
                 transaction.rollback();
             }
             LOG.error(e.getMessage());
+            throw e;
         }
         return itemsList;
     }
@@ -116,6 +121,7 @@ public class HbmTracker implements Store {
                 transaction.rollback();
             }
             LOG.error(e.getMessage());
+            throw e;
         }
         return list;
     }
@@ -133,6 +139,7 @@ public class HbmTracker implements Store {
                 transaction.rollback();
             }
             LOG.error(e.getMessage());
+            throw e;
         }
         return item;
     }
