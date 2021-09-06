@@ -9,7 +9,7 @@ public interface Store extends AutoCloseable {
 
     Item add(Item item);
 
-    boolean replace(String id, Item item);
+    boolean replace(String id, Item item) throws Exception;
 
     boolean delete(String id);
 

@@ -21,10 +21,14 @@ public class EditAction implements UserAction {
         String id = input.askStr("Enter ID: ");
         String name = input.askStr("Enter Name: ");
         Item item = new Item(name);
-        if (tracker.replace(id, item)) {
-            out.println("Request with name: " + name + " and ID: " + id + " replaced");
-        } else {
-            out.println("Something went wrong..");
+        try {
+            if (tracker.replace(id, item)) {
+                out.println("Request with name: " + name + " and ID: " + id + " replaced");
+            } else {
+                out.println("Something went wrong..");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return true;
     }

@@ -21,14 +21,14 @@ public class HibernateTest {
     }
 
     @Test
-    public void HbrAddTest() {
+    public void hbrAddTest() {
         Item item = new Item(0, "Name1", "Description1");
         tracker.add(item);
         Assert.assertEquals(item, tracker.findAll().get(0));
     }
 
     @Test
-    public void HbrReplaceTest() throws Exception {
+    public void hbrReplaceTest() throws Exception {
         Item item = new Item(0, "Name1", "Description1");
         tracker.add(item);
         item.setName("New_Name");
@@ -38,7 +38,7 @@ public class HibernateTest {
     }
 
     @Test
-    public void HbrDeleteTest() {
+    public void hbrDeleteTest() {
         Item item = new Item(0, "Name1", "Description1");
         tracker.add(item);
         tracker.delete("1");
@@ -46,7 +46,7 @@ public class HibernateTest {
     }
 
     @Test
-    public void HbrFindByNameTest() {
+    public void hbrFindByNameTest() {
         Item item1 = new Item(0, "Name1", "Description1");
         Item item2 = new Item(0, "Name2", "Description2");
         Item item3 = new Item(0, "Name2", "Description3");
@@ -59,7 +59,7 @@ public class HibernateTest {
     }
 
     @Test
-    public void HbrFindByIdTest() {
+    public void hbrFindByIdTest() {
         Item item1 = new Item(0, "Name1", "Description1");
         Item item2 = new Item(0, "Name2", "Description2");
         tracker.add(item1);
@@ -69,7 +69,7 @@ public class HibernateTest {
     }
 
     @Test
-    public void HbrFindAllTest() {
+    public void hbrFindAllTest() {
         Item item1 = new Item(0, "Name1", "Description1");
         Item item2 = new Item(0, "Name2", "Description2");
         tracker.add(item1);

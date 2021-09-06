@@ -11,7 +11,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 import ru.job4j.tracker.model.Item;
 
-import java.security.spec.ECField;
 import java.util.List;
 
 public class HbmTracker implements Store {
@@ -92,7 +91,7 @@ public class HbmTracker implements Store {
         try (Session session = sf.openSession()) {
             transaction = session.beginTransaction();
             itemsList = session.createQuery("from ru.job4j.tracker.model.Item", Item.class).list();
-            session.getTransaction().commit();
+            transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -133,7 +132,7 @@ public class HbmTracker implements Store {
         try (Session session = sf.openSession())  {
             transaction = session.beginTransaction();
             item = session.get(Item.class, Integer.valueOf(id));
-            session.getTransaction().commit();
+            transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
