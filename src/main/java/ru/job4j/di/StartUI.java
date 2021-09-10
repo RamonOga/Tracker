@@ -1,12 +1,14 @@
 package ru.job4j.di;
 
+import org.springframework.stereotype.Component;
 import ru.job4j.tracker.io.ConsoleInput;
 import ru.job4j.tracker.io.ConsoleOutput;
 
+@Component
 public class StartUI {
 
     private Store store;
-    ConsoleInput input;
+    private ConsoleInput input;
 
     public StartUI(Store store) {
         this.store = store;
