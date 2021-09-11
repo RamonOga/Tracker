@@ -13,7 +13,6 @@ public class StartUI {
     private Store store;
     private ConsoleInput input;
 
-
     public String askSrr(String str) {
         return input.askStr(str);
     }
@@ -31,6 +30,7 @@ public class StartUI {
             System.out.println(value);
         }
     }
+
     @Autowired
     public void setInput(ConsoleInput input) {
         this.input = input;
